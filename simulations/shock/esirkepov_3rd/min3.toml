@@ -1,0 +1,91 @@
+[simulation]
+  name    = "_min3"
+  engine  = "srpic"
+  runtime = 5050.0
+
+[grid]
+  resolution = [50000, 2000]
+  extent     = [[0.0, 19375.0], [-387.5, 387.5]]
+
+  [grid.metric]
+    metric = "minkowski"
+
+  [grid.boundaries]
+    fields    = [["CONDUCTOR", "MATCH"], ["PERIODIC"]]
+    particles = [["REFLECT", "REFLECT"], ["PERIODIC"]]
+
+  [grid.boundaries.match]
+    ds = 20.0
+
+
+[scales]
+  larmor0    = 1.0
+  skindepth0 = 1.0
+
+[algorithms]
+  current_filters = 8
+
+  [algorithms.timestep]
+    CFL = 0.7071
+
+  [algorithms.fieldsolver]
+    beta_xy = -0.065
+    beta_yx = -0.065
+    delta_x = -0.065
+    delta_y = -0.065
+
+[particles]
+  ppc0 = 16.0
+
+  [[particles.species]]
+    label    = "e-"
+    mass     = 1.0
+    charge   = -1.0
+    maxnpart = 2e8
+
+  [[particles.species]]
+    label    = "e+"
+    mass     = 1.0
+    charge   = 1.0
+    maxnpart = 2e8
+
+[setup]
+  drift_ux            = 15.0 # speed towards the wall [c]
+  temperature         = 1e-4 # temperature of maxwell distribution [kB T / (m_i c^2)]
+  temperature_ratio   = 1.0  # temperature ratio of electrons to protons
+  Bmag                = 0.0  # magnetic field strength as fraction of magnetisation
+  Btheta              = 0.0  # magnetic field angle in the plane
+  Bphi                = 0.0  # magnetic field angle out of plane
+  filling_fraction    = 1.0 # fraction of the shock piston filled with plasma
+  injector_velocity   = 0.0  # speed of injector [c]
+  injection_start     = 0.0  # start time of moving injector
+  injection_frequency = 100  # inject particles every 100 timesteps
+  thermal_bath = true
+  thermal_bath_offset = 20.0
+  thermal_bath_width = 10.0
+
+[checkpoints]
+  interval_time = 1000.0
+  keep          = 1
+
+[output]
+  interval_time = 1000.0
+  format        = "bpfile"
+
+  [output.fields]
+    quantities = ["N_1", "N_2", "B", "E", "T00_1", "T11_1", "T22_1", "T33_1", "V_1"]
+
+  [output.particles]
+    enable = true
+    stride = 20
+
+  [output.spectra]
+    enable = false
+
+[diagnostics]
+  log_level = "WARNING"
+  blocking_timers = true
+
+[checkpoint]
+  interval = 10000
+  keep = 1

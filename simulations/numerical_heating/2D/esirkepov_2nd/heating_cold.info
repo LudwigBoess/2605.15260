@@ -1,0 +1,94 @@
+﻿
+
+╔══════════════════════════════════════════════════════════╗
+║ Entity v1.3.0                                            ║
+╚══════════════════════════════════════════════════════════╝
+
+    Backend
+    - Build hash: 58950c5bc7481371408c22a2802d1a2ed157316f-mod
+    - CXX: GNU GCC/G++ EDG g++ 11.4.1 mode [C++17]
+    - CUDA: 12.8.0
+    - MPI: 3.1
+    - GPU-aware MPI: ON
+    - Kokkos: 4.7.0
+    - ADIOS2: 2.10.0
+    - Precision: single
+    - Debug: OFF
+
+    Compilation flags
+    - SINGLE_PRECISION: ON
+    - OUTPUT_ENABLED: ON
+    - DEBUG: OFF
+    - CUDA_ENABLED: ON
+    - HIP_ENABLED: OFF
+    - DEVICE_ENABLED: ON
+    - MPI_ENABLED: ON
+    - GPU_AWARE_MPI: ON
+
+    Configuration
+    - Name: heating_cold
+    - Problem generator: streaming
+    - Engine: srpic
+    - Metric: minkowski
+    - Timestep [dt]: 2.624e-02
+    - Runtime: 1.000e+04 [381097 steps]
+
+    Global domain
+    - Resolution: [256, 256]
+    - Extent: [{-5, 5}, {-5, 5}]
+    - Fiducial cell size [dx0]: 2.762e-02
+    - Boundary conditions:
+      - Fields: [{periodic, periodic}, {periodic, periodic}]
+      - Particles: [{periodic, periodic}, {periodic, periodic}]
+    - Domain decomposition: [1, 1] [1 total]
+
+    Fiducial parameters
+    - Particles per cell [ppc0]: 16.0
+    - Larmor radius [larmor0]: 1.000e+00 [36.204 dx0]
+    - Larmor frequency [omegaB0 * dt]: 2.624e-02
+    - Skin depth [skindepth0]: 1.000e+00 [36.204 dx0]
+    - Plasma frequency [omp0 * dt]: 2.624e-02
+    - Magnetization [sigma0]: 1.000e+00
+
+    Particles
+    - Species #1:
+      - Label: e-
+      - Mass: 1.0
+      - Charge: -1.0
+      - Max #: 100000000 [per domain]
+      - Pusher: boris
+      - GCA: OFF
+      - Cooling: none
+      - # of payloads: 0
+    - Species #2:
+      - Label: e+
+      - Mass: 1.0
+      - Charge: 1.0
+      - Max #: 100000000 [per domain]
+      - Pusher: boris
+      - GCA: OFF
+      - Cooling: none
+      - # of payloads: 0
+
+    Domains
+    - Domain #0:
+      - Rank: 0
+      - Resolution: [256, 256]
+      - Extent: [{-5, 5}, {-5, 5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : periodic    periodic    .         
+        - 0 : periodic    periodic    .         
+        - + : periodic    periodic    .         
+        0 - : periodic    periodic    .         
+        0 + : periodic    periodic    .         
+        + - : periodic    periodic    .         
+        + 0 : periodic    periodic    .         
+        + + : periodic    periodic    .         
+      - Memory footprint:
+        - Fields: 4.64 MB
+        - Particles:
+          - Species #1 (e-): 4.66 GB
+          - Species #2 (e+): 4.66 GB
+
+

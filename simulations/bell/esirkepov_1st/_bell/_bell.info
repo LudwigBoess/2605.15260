@@ -1,0 +1,113 @@
+﻿
+
+╔══════════════════════════════════════════════════════════╗
+║ Entity v1.3.0                                            ║
+╚══════════════════════════════════════════════════════════╝
+
+    Backend
+    - Build hash: 34ddd52c3f842ba80c57d7e877a392892958383e
+    - CXX: Clang/LLVM 21.0.0git (icx 2025.2.0.20250605) [C++17]
+    - MPI: 4.1
+    - GPU-aware MPI: OFF
+    - Kokkos: 4.7.0
+    - ADIOS2: 2.10.2
+    - Precision: single
+    - Debug: OFF
+
+    Compilation flags
+    - SINGLE_PRECISION: ON
+    - OUTPUT_ENABLED: ON
+    - DEBUG: OFF
+    - CUDA_ENABLED: OFF
+    - HIP_ENABLED: OFF
+    - DEVICE_ENABLED: ON
+    - MPI_ENABLED: ON
+    - GPU_AWARE_MPI: OFF
+
+    Configuration
+    - Name: _bell
+    - Problem generator: Bell
+    - Engine: srpic
+    - Deposit: esirkepov
+    - Interpolation order: 1
+    - Metric: minkowski
+    - Timestep [dt]: 5.000e-02
+    - Runtime: 2.000e+05 [3999999 steps]
+
+    Global domain
+    - Resolution: [98304]
+    - Extent: [{0, 9830.4}]
+    - Fiducial cell size [dx0]: 1.000e-01
+    - Boundary conditions:
+      - Fields: [{periodic, periodic}]
+      - Particles: [{periodic, periodic}]
+    - Domain decomposition: [1] [1 total]
+
+    Fiducial parameters
+    - Particles per cell [ppc0]: 32.0
+    - Larmor radius [larmor0]: 1.000e+00 [10.000 dx0]
+    - Larmor frequency [omegaB0 * dt]: 5.000e-02
+    - Skin depth [skindepth0]: 1.000e+00 [10.000 dx0]
+    - Plasma frequency [omp0 * dt]: 5.000e-02
+    - Magnetization [sigma0]: 1.000e+00
+
+    Particles
+    - Species #1:
+      - Label: ions
+      - Mass: 50.0
+      - Charge: 1.0
+      - Max #: 2000000 [per domain]
+      - Pusher: boris
+      - GCA: OFF
+      - Cooling: none
+      - # of real-value payloads: 0
+      - # of integer-value payloads: 0
+    - Species #2:
+      - Label: e-1
+      - Mass: 1.0
+      - Charge: -1.0
+      - Max #: 2000000 [per domain]
+      - Pusher: boris
+      - GCA: OFF
+      - Cooling: none
+      - # of real-value payloads: 0
+      - # of integer-value payloads: 0
+    - Species #3:
+      - Label: CR
+      - Mass: 50.0
+      - Charge: 1.0
+      - Max #: 2000000 [per domain]
+      - Pusher: boris
+      - GCA: OFF
+      - Cooling: none
+      - # of real-value payloads: 0
+      - # of integer-value payloads: 0
+    - Species #4:
+      - Label: e-2
+      - Mass: 1.0
+      - Charge: -1.0
+      - Max #: 2000000 [per domain]
+      - Pusher: boris
+      - GCA: OFF
+      - Cooling: none
+      - # of real-value payloads: 0
+      - # of integer-value payloads: 0
+
+    Domains
+    - Domain #0:
+      - Rank: 0
+      - Resolution: [98304]
+      - Extent: [{0, 9830.4}]
+      - Boundary conditions:
+            [flds]      [prtl]      [neighbor]
+        - : periodic    periodic    .         
+        + : periodic    periodic    .         
+      - Memory footprint:
+        - Fields: 6.75 MB
+        - Particles:
+          - Species #1 (ions): 64.85 MB
+          - Species #2 (e-1): 64.85 MB
+          - Species #3 (CR): 64.85 MB
+          - Species #4 (e-2): 64.85 MB
+
+

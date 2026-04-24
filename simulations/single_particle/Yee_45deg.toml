@@ -1,0 +1,79 @@
+[simulation]
+  name    = "_Yee_45deg"
+  engine  = "srpic"
+  runtime = 0.48
+
+[grid]
+  resolution = [4096, 4096]
+  extent     = [[0.0, 1.0], [0.0, 1.0]]
+
+  [grid.metric]
+    metric = "minkowski"
+
+  [grid.boundaries]
+    fields    = [["PERIODIC"], ["PERIODIC"]]
+    particles = [["PERIODIC"], ["PERIODIC"]]
+
+[scales]
+  larmor0    = 0.1
+  skindepth0 = 0.1
+
+[algorithms]
+  current_filters = 8
+
+  [algorithms.timestep]
+    CFL = 0.95
+
+[particles]
+  ppc0 = 10.0
+
+  [[particles.species]]
+    label    = "e-"
+    mass     = 1.0
+    charge   = -1.0
+    maxnpart = 1e2
+
+  [[particles.species]]
+    label    = "e+"
+    mass     = 1.0
+    charge   = 0.0
+    maxnpart = 1e2
+
+[setup]
+  x1_e  = [0.25]
+  x2_e  = [0.25]
+  x3_e  = [0.0]
+  ux1_e = [3.162]
+  ux2_e = [3.162]
+  ux3_e = [0.0]
+
+  x1_i  = [0.0]
+  x2_i  = [0.0]
+  x3_i  = [0.0]
+  ux1_i = [0.0]
+  ux2_i = [0.0]
+  ux3_i = [0.0]
+
+[output]
+  format   = "BPFile"
+  interval_time = 0.45
+
+  [output.fields]
+    quantities = ["E", "B"]
+
+  [output.particles]
+    enable = true
+    stride = 1
+
+  [output.spectra]
+    enable = false
+
+  [output.debug]
+    ghosts = false
+
+[checkpoint]
+  keep = 1
+
+[diagnostics]
+  log_level = "WARNING"
+  blocking_timers = true

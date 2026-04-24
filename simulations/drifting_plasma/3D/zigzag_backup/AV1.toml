@@ -1,0 +1,93 @@
+[simulation]
+  name    = "_AV1"
+  engine  = "srpic"
+  runtime = 10010.1
+
+[grid]
+  resolution = [32, 32, 32]
+  extent     = [[-0.625, 0.625], [-0.625, 0.625], [-0.625, 0.625]]
+
+  [grid.metric]
+    metric = "minkowski"
+
+  [grid.boundaries]
+    fields    = [["PERIODIC"], ["PERIODIC"], ["PERIODIC"]]
+    particles = [["PERIODIC"], ["PERIODIC"], ["PERIODIC"]]
+
+[scales]
+  larmor0    = 1.0
+  skindepth0 = 1.0
+
+[algorithms]
+  current_filters = 5
+
+  [algorithms.timestep]
+    CFL = 0.866
+
+  [algorithms.fieldsolver]
+    delta_x = -0.00867
+    delta_y = -0.00867
+    delta_z = -0.00867
+    beta_xy = -0.00867
+    beta_yx = -0.00867
+    beta_xz = -0.00867
+    beta_zx = -0.00867
+    beta_yz = -0.00867
+    beta_zy = -0.00867
+
+
+[particles]
+  ppc0 = 32.0
+
+  [[particles.species]]
+    label    = "e-"
+    mass     = 1.0
+    charge   = -1.0
+    maxnpart = 1e7
+
+  [[particles.species]]
+    label    = "e+"
+    mass     = 1.0
+    charge   = 1.0
+    maxnpart = 1e7
+
+[setup]
+  # Drift 4-velocities for each species in all 3 directions
+  #   @type: array of floats (length = nspec)
+  #   @default: [ 0.0, ... ]
+  drifts_in_x = [-10.0, -10.0]
+  drifts_in_y = [0.0, 0.0]
+  drifts_in_z = [0.0, 0.0]
+  # Pair-wise species densities in units of n0
+  #   @type: array of floats (length = nspec/2)
+  #   @default: [ 2 / nspec, ... ]
+  densities = [1.0]
+  # Species temperatures in units of m0 (c^2)
+  #   @type: array of floats (length = nspec)
+  #   @default: [ 0.0, ... ]
+  temperatures = [0.08, 0.08]
+
+[output]
+  interval_time = 100.0
+  format = "BPFile"
+
+  [output.fields]
+    enable = false
+
+  [output.particles]
+    enable = false
+
+  [output.spectra]
+    enable = false
+
+  [output.stats]
+    enable = true
+    quantities = ["B^2", "T22"]
+
+[diagnostics]
+  colored_stdout = false
+  log_level = "WARNING"
+  blocking_timers = true
+
+[checkpoint]
+  keep = 1

@@ -1,0 +1,89 @@
+[simulation]
+  name    = "weibel"
+  engine  = "srpic"
+  runtime = 10.0
+
+[grid]
+  resolution = [128, 128, 128]
+  extent     = [[0.0, 12.8], [0.0, 12.8], [0.0, 12.8]]
+
+  [grid.metric]
+    metric = "minkowski"
+
+  [grid.boundaries]
+    fields    = [["PERIODIC"], ["PERIODIC"], ["PERIODIC"]]
+    particles = [["PERIODIC"], ["PERIODIC"], ["PERIODIC"]]
+
+[scales]
+  larmor0    = 1.0
+  skindepth0 = 1.0
+
+[algorithms]
+  current_filters = 0
+
+  [algorithms.timestep]
+    CFL = 0.866
+
+[particles]
+  ppc0 = 16.0
+
+  [[particles.species]]
+    label    = "e-_p"
+    mass     = 1.0
+    charge   = -1.0
+    maxnpart = 1.0e7
+
+  [[particles.species]]
+    label    = "e+_p"
+    mass     = 1.0
+    charge   = 1.0
+    maxnpart = 1.0e7
+
+  [[particles.species]]
+    label    = "e-_b"
+    mass     = 1.0
+    charge   = -1.0
+    maxnpart = 1.0e7
+
+  [[particles.species]]
+    label    = "e+_b"
+    mass     = 1.0
+    charge   = 1.0
+    maxnpart = 1.0e7
+
+[setup]
+  # Drift 4-velocities for each species in all 3 directions
+  #   @type: array of floats (length = nspec)
+  #   @default: [ 0.0, ... ]
+  drifts_in_x = [0.9, 0.9, -0.9, -0.9]
+  drifts_in_y = [0.0, 0.0, 0.0, 0.0]
+  drifts_in_z = [0.0, 0.0, 0.0, 0.0]
+  # Pair-wise species densities in units of n0
+  #   @type: array of floats (length = nspec/2)
+  #   @default: [ 2 / nspec, ... ]
+  densities = [0.5, 0.5]
+  # Species temperatures in units of m0 (c^2)
+  #   @type: array of floats (length = nspec)
+  #   @default: [ 0.0, ... ]
+  temperatures = [1e-4, 1e-4, 1e-4, 1e-4]
+
+[output]
+  interval_time = 1.0
+  format = "BPFile"
+
+  [output.fields]
+    enable = false
+
+  [output.particles]
+    enable = false
+
+  [output.spectra]
+    enable = false
+
+[diagnostics]
+  log_level = "WARNING"
+  blocking_timers = true
+
+[checkpoint]
+  interval = 10000
+  keep = 1

@@ -1,0 +1,102 @@
+[simulation]
+  name    = "_16ppc"
+  engine  = "srpic"
+  runtime = 400.0
+
+[grid]
+  resolution = [1024, 1024]
+  extent     = [[-51.2, 51.2], [-51.2, 51.2]]
+
+  [grid.metric]
+    metric = "minkowski"
+
+  [grid.boundaries]
+    fields    = [["PERIODIC"], ["PERIODIC"]]
+    particles = [["PERIODIC"], ["PERIODIC"]]
+
+[scales]
+  larmor0    = 1.0
+  skindepth0 = 1.0
+
+[algorithms]
+  current_filters = 0
+
+  [algorithms.timestep]
+    CFL = 0.97
+
+  [algorithms.fieldsolver]
+    delta_x = -0.125
+    delta_y = -0.125
+    beta_xy = 0.11
+    beta_yx = 0.11
+
+
+[particles]
+  ppc0 = 16.0
+
+  [[particles.species]]
+    label    = "e-_p"
+    mass     = 1.0
+    charge   = -1.0
+    maxnpart = 7e7
+
+  [[particles.species]]
+    label    = "e+_p"
+    mass     = 1836.0
+    charge   = 1.0
+    maxnpart = 7e7
+
+  [[particles.species]]
+    label    = "e-_b"
+    mass     = 1.0
+    charge   = -1.0
+    maxnpart = 1e3
+
+  [[particles.species]]
+    label    = "e+_b"
+    mass     = 1.0
+    charge   = 1.0
+    maxnpart = 1e3
+
+[setup]
+  # Drift 4-velocities for each species in all 3 directions
+  #   @type: array of floats (length = nspec)
+  #   @default: [ 0.0, ... ]
+  drifts_in_x = [0.0, 0.0]
+  drifts_in_y = [0.0, 0.0]
+  drifts_in_z = [0.0, 0.0]
+  # Pair-wise species densities in units of n0
+  #   @type: array of floats (length = nspec/2)
+  #   @default: [ 2 / nspec, ... ]
+  densities = [1.0]
+  # Species temperatures in units of m0 (c^2)
+  #   @type: array of floats (length = nspec)
+  #   @default: [ 0.0, ... ]
+  temperatures = [0.03131, 0.03131]
+  # 
+  # Single particle injection 
+  drift_ux = 10.0
+  Nsampled = 100
+
+[output]
+  format   = "BPFile"
+  interval_time = 10.0
+
+  [output.fields]
+    enable = false
+    quantities = ["N_1", "N_2", "E", "B", "J"]
+
+  [output.particles]
+    enable = true 
+    species = [3]
+    stride = 1
+
+  [output.spectra]
+    enable = false
+
+[checkpoint]
+  keep = 1
+
+[diagnostics]
+  log_level = "WARNING"
+  blocking_timers = true

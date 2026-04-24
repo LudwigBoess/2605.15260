@@ -1,0 +1,1925 @@
+﻿
+
+╔══════════════════════════════════════════════════════════╗
+║ Entity v1.4.0                                            ║
+╚══════════════════════════════════════════════════════════╝
+
+    Backend
+    - Build hash: 1e2cc71ad5b10d4864c0db26467ec7ec3c51d557
+    - CXX: Clang/LLVM 21.1.1 (icx 2025.3.2.20260112) [C++20]
+    - MPI: 4.1
+    - GPU-aware MPI: OFF
+    - Kokkos: 5.0.1
+    - ADIOS2: 2.11.0
+    - Precision: single
+    - Debug: OFF
+
+    Compilation flags
+    - SINGLE_PRECISION: ON
+    - OUTPUT_ENABLED: ON
+    - DEBUG: OFF
+    - CUDA_ENABLED: OFF
+    - HIP_ENABLED: OFF
+    - DEVICE_ENABLED: ON
+    - MPI_ENABLED: ON
+    - GPU_AWARE_MPI: OFF
+
+    Configuration
+    - Name: _min3
+    - Engine: srpic
+    - Metric: minkowski
+    - Deposit: esirkepov
+    - Interpolation order: 3
+    - Timestep [dt]: 1.937e-01
+    - Runtime: 5.050e+03 [26064 steps]
+
+    Global domain
+    - Resolution: [50000, 2000]
+    - Extent: [{0, 19375}, {-387.5, 387.5}]
+    - Fiducial cell size [dx0]: 2.740e-01
+    - Boundary conditions:
+      - Fields: [{conductor, match}, {periodic, periodic}]
+      - Particles: [{reflect, reflect}, {periodic, periodic}]
+    - Domain decomposition: [48, 2] [96 total]
+
+    Nominal parameters
+    - Particles per cell [ppc0]: 16.0
+    - Larmor radius [larmor0]: 1.000e+00 [3.650 dx0]
+    - Larmor frequency [omegaB0 * dt]: 1.937e-01
+    - Skin depth [skindepth0]: 1.000e+00 [3.650 dx0]
+    - Plasma frequency [omp0 * dt]: 1.937e-01
+    - Magnetization [sigma0]: 1.000e+00
+
+    Problem generator
+      - Name: shock_lmb
+      - Methods defined:
+        - InitFlds: ON
+        - InitPrtls: ON
+        - CustomPostStep: ON
+        - ExternalFields: OFF
+        - ext_current: OFF
+        - AtmFields: OFF
+        - MatchFields: ON
+        - MatchFieldsInX1: OFF
+        - MatchFieldsInX2: OFF
+        - MatchFieldsInX3: OFF
+        - FixFieldsConst: OFF
+        - EmissionPolicy: OFF
+        - CustomFieldOutput: OFF
+        - CustomStatOutput: OFF
+
+    Particles
+    - Species #1:
+      - Label: e-
+      - Mass: 1.0
+      - Charge: -1.0
+      - Max #: 200000000 [per domain]
+      - Clearing interval: 100
+      - Spatial sorting interval: OFF
+      - Pusher: boris
+      - Radiative drag: none
+      - Emission policy: none
+      - Tracking: OFF
+      - # of real-value payloads: 0
+      - # of integer-value payloads: 0
+    - Species #2:
+      - Label: e+
+      - Mass: 1.0
+      - Charge: 1.0
+      - Max #: 200000000 [per domain]
+      - Clearing interval: 100
+      - Spatial sorting interval: OFF
+      - Pusher: boris
+      - Radiative drag: none
+      - Emission policy: none
+      - Tracking: OFF
+      - # of real-value payloads: 0
+      - # of integer-value payloads: 0
+
+    Domains
+    - Domain #0:
+      - Rank: 0
+      - Resolution: [1042, 1000]
+      - Extent: [{0, 403.775}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : conductor   reflect     .         
+        - 0 : conductor   reflect     .         
+        - + : conductor   reflect     .         
+        0 - : sync        sync        48        
+        0 + : sync        sync        48        
+        + - : sync        sync        49        
+        + 0 : sync        sync        1         
+        + + : sync        sync        49        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #1:
+      - Rank: 1
+      - Resolution: [1042, 1000]
+      - Extent: [{403.775, 807.55}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        48        
+        - 0 : sync        sync        0         
+        - + : sync        sync        48        
+        0 - : sync        sync        49        
+        0 + : sync        sync        49        
+        + - : sync        sync        50        
+        + 0 : sync        sync        2         
+        + + : sync        sync        50        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #2:
+      - Rank: 2
+      - Resolution: [1042, 1000]
+      - Extent: [{807.55, 1211.32}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        49        
+        - 0 : sync        sync        1         
+        - + : sync        sync        49        
+        0 - : sync        sync        50        
+        0 + : sync        sync        50        
+        + - : sync        sync        51        
+        + 0 : sync        sync        3         
+        + + : sync        sync        51        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #3:
+      - Rank: 3
+      - Resolution: [1042, 1000]
+      - Extent: [{1211.32, 1615.1}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        50        
+        - 0 : sync        sync        2         
+        - + : sync        sync        50        
+        0 - : sync        sync        51        
+        0 + : sync        sync        51        
+        + - : sync        sync        52        
+        + 0 : sync        sync        4         
+        + + : sync        sync        52        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #4:
+      - Rank: 4
+      - Resolution: [1042, 1000]
+      - Extent: [{1615.1, 2018.87}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        51        
+        - 0 : sync        sync        3         
+        - + : sync        sync        51        
+        0 - : sync        sync        52        
+        0 + : sync        sync        52        
+        + - : sync        sync        53        
+        + 0 : sync        sync        5         
+        + + : sync        sync        53        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #5:
+      - Rank: 5
+      - Resolution: [1042, 1000]
+      - Extent: [{2018.87, 2422.65}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        52        
+        - 0 : sync        sync        4         
+        - + : sync        sync        52        
+        0 - : sync        sync        53        
+        0 + : sync        sync        53        
+        + - : sync        sync        54        
+        + 0 : sync        sync        6         
+        + + : sync        sync        54        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #6:
+      - Rank: 6
+      - Resolution: [1042, 1000]
+      - Extent: [{2422.65, 2826.42}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        53        
+        - 0 : sync        sync        5         
+        - + : sync        sync        53        
+        0 - : sync        sync        54        
+        0 + : sync        sync        54        
+        + - : sync        sync        55        
+        + 0 : sync        sync        7         
+        + + : sync        sync        55        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #7:
+      - Rank: 7
+      - Resolution: [1042, 1000]
+      - Extent: [{2826.42, 3230.2}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        54        
+        - 0 : sync        sync        6         
+        - + : sync        sync        54        
+        0 - : sync        sync        55        
+        0 + : sync        sync        55        
+        + - : sync        sync        56        
+        + 0 : sync        sync        8         
+        + + : sync        sync        56        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #8:
+      - Rank: 8
+      - Resolution: [1042, 1000]
+      - Extent: [{3230.2, 3633.97}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        55        
+        - 0 : sync        sync        7         
+        - + : sync        sync        55        
+        0 - : sync        sync        56        
+        0 + : sync        sync        56        
+        + - : sync        sync        57        
+        + 0 : sync        sync        9         
+        + + : sync        sync        57        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #9:
+      - Rank: 9
+      - Resolution: [1042, 1000]
+      - Extent: [{3633.97, 4037.75}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        56        
+        - 0 : sync        sync        8         
+        - + : sync        sync        56        
+        0 - : sync        sync        57        
+        0 + : sync        sync        57        
+        + - : sync        sync        58        
+        + 0 : sync        sync        10        
+        + + : sync        sync        58        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #10:
+      - Rank: 10
+      - Resolution: [1042, 1000]
+      - Extent: [{4037.75, 4441.52}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        57        
+        - 0 : sync        sync        9         
+        - + : sync        sync        57        
+        0 - : sync        sync        58        
+        0 + : sync        sync        58        
+        + - : sync        sync        59        
+        + 0 : sync        sync        11        
+        + + : sync        sync        59        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #11:
+      - Rank: 11
+      - Resolution: [1042, 1000]
+      - Extent: [{4441.52, 4845.3}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        58        
+        - 0 : sync        sync        10        
+        - + : sync        sync        58        
+        0 - : sync        sync        59        
+        0 + : sync        sync        59        
+        + - : sync        sync        60        
+        + 0 : sync        sync        12        
+        + + : sync        sync        60        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #12:
+      - Rank: 12
+      - Resolution: [1042, 1000]
+      - Extent: [{4845.3, 5249.07}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        59        
+        - 0 : sync        sync        11        
+        - + : sync        sync        59        
+        0 - : sync        sync        60        
+        0 + : sync        sync        60        
+        + - : sync        sync        61        
+        + 0 : sync        sync        13        
+        + + : sync        sync        61        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #13:
+      - Rank: 13
+      - Resolution: [1042, 1000]
+      - Extent: [{5249.07, 5652.85}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        60        
+        - 0 : sync        sync        12        
+        - + : sync        sync        60        
+        0 - : sync        sync        61        
+        0 + : sync        sync        61        
+        + - : sync        sync        62        
+        + 0 : sync        sync        14        
+        + + : sync        sync        62        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #14:
+      - Rank: 14
+      - Resolution: [1042, 1000]
+      - Extent: [{5652.85, 6056.62}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        61        
+        - 0 : sync        sync        13        
+        - + : sync        sync        61        
+        0 - : sync        sync        62        
+        0 + : sync        sync        62        
+        + - : sync        sync        63        
+        + 0 : sync        sync        15        
+        + + : sync        sync        63        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #15:
+      - Rank: 15
+      - Resolution: [1042, 1000]
+      - Extent: [{6056.62, 6460.4}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        62        
+        - 0 : sync        sync        14        
+        - + : sync        sync        62        
+        0 - : sync        sync        63        
+        0 + : sync        sync        63        
+        + - : sync        sync        64        
+        + 0 : sync        sync        16        
+        + + : sync        sync        64        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #16:
+      - Rank: 16
+      - Resolution: [1042, 1000]
+      - Extent: [{6460.4, 6864.17}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        63        
+        - 0 : sync        sync        15        
+        - + : sync        sync        63        
+        0 - : sync        sync        64        
+        0 + : sync        sync        64        
+        + - : sync        sync        65        
+        + 0 : sync        sync        17        
+        + + : sync        sync        65        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #17:
+      - Rank: 17
+      - Resolution: [1042, 1000]
+      - Extent: [{6864.17, 7267.95}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        64        
+        - 0 : sync        sync        16        
+        - + : sync        sync        64        
+        0 - : sync        sync        65        
+        0 + : sync        sync        65        
+        + - : sync        sync        66        
+        + 0 : sync        sync        18        
+        + + : sync        sync        66        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #18:
+      - Rank: 18
+      - Resolution: [1042, 1000]
+      - Extent: [{7267.95, 7671.72}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        65        
+        - 0 : sync        sync        17        
+        - + : sync        sync        65        
+        0 - : sync        sync        66        
+        0 + : sync        sync        66        
+        + - : sync        sync        67        
+        + 0 : sync        sync        19        
+        + + : sync        sync        67        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #19:
+      - Rank: 19
+      - Resolution: [1042, 1000]
+      - Extent: [{7671.72, 8075.5}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        66        
+        - 0 : sync        sync        18        
+        - + : sync        sync        66        
+        0 - : sync        sync        67        
+        0 + : sync        sync        67        
+        + - : sync        sync        68        
+        + 0 : sync        sync        20        
+        + + : sync        sync        68        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #20:
+      - Rank: 20
+      - Resolution: [1042, 1000]
+      - Extent: [{8075.5, 8479.27}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        67        
+        - 0 : sync        sync        19        
+        - + : sync        sync        67        
+        0 - : sync        sync        68        
+        0 + : sync        sync        68        
+        + - : sync        sync        69        
+        + 0 : sync        sync        21        
+        + + : sync        sync        69        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #21:
+      - Rank: 21
+      - Resolution: [1042, 1000]
+      - Extent: [{8479.27, 8883.05}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        68        
+        - 0 : sync        sync        20        
+        - + : sync        sync        68        
+        0 - : sync        sync        69        
+        0 + : sync        sync        69        
+        + - : sync        sync        70        
+        + 0 : sync        sync        22        
+        + + : sync        sync        70        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #22:
+      - Rank: 22
+      - Resolution: [1042, 1000]
+      - Extent: [{8883.05, 9286.83}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        69        
+        - 0 : sync        sync        21        
+        - + : sync        sync        69        
+        0 - : sync        sync        70        
+        0 + : sync        sync        70        
+        + - : sync        sync        71        
+        + 0 : sync        sync        23        
+        + + : sync        sync        71        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #23:
+      - Rank: 23
+      - Resolution: [1042, 1000]
+      - Extent: [{9286.83, 9690.6}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        70        
+        - 0 : sync        sync        22        
+        - + : sync        sync        70        
+        0 - : sync        sync        71        
+        0 + : sync        sync        71        
+        + - : sync        sync        72        
+        + 0 : sync        sync        24        
+        + + : sync        sync        72        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #24:
+      - Rank: 24
+      - Resolution: [1042, 1000]
+      - Extent: [{9690.6, 10094.4}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        71        
+        - 0 : sync        sync        23        
+        - + : sync        sync        71        
+        0 - : sync        sync        72        
+        0 + : sync        sync        72        
+        + - : sync        sync        73        
+        + 0 : sync        sync        25        
+        + + : sync        sync        73        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #25:
+      - Rank: 25
+      - Resolution: [1042, 1000]
+      - Extent: [{10094.4, 10498.1}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        72        
+        - 0 : sync        sync        24        
+        - + : sync        sync        72        
+        0 - : sync        sync        73        
+        0 + : sync        sync        73        
+        + - : sync        sync        74        
+        + 0 : sync        sync        26        
+        + + : sync        sync        74        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #26:
+      - Rank: 26
+      - Resolution: [1042, 1000]
+      - Extent: [{10498.1, 10901.9}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        73        
+        - 0 : sync        sync        25        
+        - + : sync        sync        73        
+        0 - : sync        sync        74        
+        0 + : sync        sync        74        
+        + - : sync        sync        75        
+        + 0 : sync        sync        27        
+        + + : sync        sync        75        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #27:
+      - Rank: 27
+      - Resolution: [1042, 1000]
+      - Extent: [{10901.9, 11305.7}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        74        
+        - 0 : sync        sync        26        
+        - + : sync        sync        74        
+        0 - : sync        sync        75        
+        0 + : sync        sync        75        
+        + - : sync        sync        76        
+        + 0 : sync        sync        28        
+        + + : sync        sync        76        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #28:
+      - Rank: 28
+      - Resolution: [1042, 1000]
+      - Extent: [{11305.7, 11709.5}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        75        
+        - 0 : sync        sync        27        
+        - + : sync        sync        75        
+        0 - : sync        sync        76        
+        0 + : sync        sync        76        
+        + - : sync        sync        77        
+        + 0 : sync        sync        29        
+        + + : sync        sync        77        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #29:
+      - Rank: 29
+      - Resolution: [1042, 1000]
+      - Extent: [{11709.5, 12113.2}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        76        
+        - 0 : sync        sync        28        
+        - + : sync        sync        76        
+        0 - : sync        sync        77        
+        0 + : sync        sync        77        
+        + - : sync        sync        78        
+        + 0 : sync        sync        30        
+        + + : sync        sync        78        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #30:
+      - Rank: 30
+      - Resolution: [1042, 1000]
+      - Extent: [{12113.2, 12517}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        77        
+        - 0 : sync        sync        29        
+        - + : sync        sync        77        
+        0 - : sync        sync        78        
+        0 + : sync        sync        78        
+        + - : sync        sync        79        
+        + 0 : sync        sync        31        
+        + + : sync        sync        79        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #31:
+      - Rank: 31
+      - Resolution: [1042, 1000]
+      - Extent: [{12517, 12920.8}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        78        
+        - 0 : sync        sync        30        
+        - + : sync        sync        78        
+        0 - : sync        sync        79        
+        0 + : sync        sync        79        
+        + - : sync        sync        80        
+        + 0 : sync        sync        32        
+        + + : sync        sync        80        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #32:
+      - Rank: 32
+      - Resolution: [1041, 1000]
+      - Extent: [{12920.8, 13324.2}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        79        
+        - 0 : sync        sync        31        
+        - + : sync        sync        79        
+        0 - : sync        sync        80        
+        0 + : sync        sync        80        
+        + - : sync        sync        81        
+        + 0 : sync        sync        33        
+        + + : sync        sync        81        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #33:
+      - Rank: 33
+      - Resolution: [1041, 1000]
+      - Extent: [{13324.2, 13727.6}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        80        
+        - 0 : sync        sync        32        
+        - + : sync        sync        80        
+        0 - : sync        sync        81        
+        0 + : sync        sync        81        
+        + - : sync        sync        82        
+        + 0 : sync        sync        34        
+        + + : sync        sync        82        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #34:
+      - Rank: 34
+      - Resolution: [1041, 1000]
+      - Extent: [{13727.6, 14131}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        81        
+        - 0 : sync        sync        33        
+        - + : sync        sync        81        
+        0 - : sync        sync        82        
+        0 + : sync        sync        82        
+        + - : sync        sync        83        
+        + 0 : sync        sync        35        
+        + + : sync        sync        83        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #35:
+      - Rank: 35
+      - Resolution: [1041, 1000]
+      - Extent: [{14131, 14534.3}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        82        
+        - 0 : sync        sync        34        
+        - + : sync        sync        82        
+        0 - : sync        sync        83        
+        0 + : sync        sync        83        
+        + - : sync        sync        84        
+        + 0 : sync        sync        36        
+        + + : sync        sync        84        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #36:
+      - Rank: 36
+      - Resolution: [1041, 1000]
+      - Extent: [{14534.3, 14937.7}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        83        
+        - 0 : sync        sync        35        
+        - + : sync        sync        83        
+        0 - : sync        sync        84        
+        0 + : sync        sync        84        
+        + - : sync        sync        85        
+        + 0 : sync        sync        37        
+        + + : sync        sync        85        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #37:
+      - Rank: 37
+      - Resolution: [1041, 1000]
+      - Extent: [{14937.7, 15341.1}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        84        
+        - 0 : sync        sync        36        
+        - + : sync        sync        84        
+        0 - : sync        sync        85        
+        0 + : sync        sync        85        
+        + - : sync        sync        86        
+        + 0 : sync        sync        38        
+        + + : sync        sync        86        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #38:
+      - Rank: 38
+      - Resolution: [1041, 1000]
+      - Extent: [{15341.1, 15744.5}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        85        
+        - 0 : sync        sync        37        
+        - + : sync        sync        85        
+        0 - : sync        sync        86        
+        0 + : sync        sync        86        
+        + - : sync        sync        87        
+        + 0 : sync        sync        39        
+        + + : sync        sync        87        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #39:
+      - Rank: 39
+      - Resolution: [1041, 1000]
+      - Extent: [{15744.5, 16147.9}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        86        
+        - 0 : sync        sync        38        
+        - + : sync        sync        86        
+        0 - : sync        sync        87        
+        0 + : sync        sync        87        
+        + - : sync        sync        88        
+        + 0 : sync        sync        40        
+        + + : sync        sync        88        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #40:
+      - Rank: 40
+      - Resolution: [1041, 1000]
+      - Extent: [{16147.9, 16551.3}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        87        
+        - 0 : sync        sync        39        
+        - + : sync        sync        87        
+        0 - : sync        sync        88        
+        0 + : sync        sync        88        
+        + - : sync        sync        89        
+        + 0 : sync        sync        41        
+        + + : sync        sync        89        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #41:
+      - Rank: 41
+      - Resolution: [1041, 1000]
+      - Extent: [{16551.3, 16954.7}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        88        
+        - 0 : sync        sync        40        
+        - + : sync        sync        88        
+        0 - : sync        sync        89        
+        0 + : sync        sync        89        
+        + - : sync        sync        90        
+        + 0 : sync        sync        42        
+        + + : sync        sync        90        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #42:
+      - Rank: 42
+      - Resolution: [1041, 1000]
+      - Extent: [{16954.7, 17358.1}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        89        
+        - 0 : sync        sync        41        
+        - + : sync        sync        89        
+        0 - : sync        sync        90        
+        0 + : sync        sync        90        
+        + - : sync        sync        91        
+        + 0 : sync        sync        43        
+        + + : sync        sync        91        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #43:
+      - Rank: 43
+      - Resolution: [1041, 1000]
+      - Extent: [{17358.1, 17761.4}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        90        
+        - 0 : sync        sync        42        
+        - + : sync        sync        90        
+        0 - : sync        sync        91        
+        0 + : sync        sync        91        
+        + - : sync        sync        92        
+        + 0 : sync        sync        44        
+        + + : sync        sync        92        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #44:
+      - Rank: 44
+      - Resolution: [1041, 1000]
+      - Extent: [{17761.4, 18164.8}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        91        
+        - 0 : sync        sync        43        
+        - + : sync        sync        91        
+        0 - : sync        sync        92        
+        0 + : sync        sync        92        
+        + - : sync        sync        93        
+        + 0 : sync        sync        45        
+        + + : sync        sync        93        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #45:
+      - Rank: 45
+      - Resolution: [1041, 1000]
+      - Extent: [{18164.8, 18568.2}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        92        
+        - 0 : sync        sync        44        
+        - + : sync        sync        92        
+        0 - : sync        sync        93        
+        0 + : sync        sync        93        
+        + - : sync        sync        94        
+        + 0 : sync        sync        46        
+        + + : sync        sync        94        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #46:
+      - Rank: 46
+      - Resolution: [1041, 1000]
+      - Extent: [{18568.2, 18971.6}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        93        
+        - 0 : sync        sync        45        
+        - + : sync        sync        93        
+        0 - : sync        sync        94        
+        0 + : sync        sync        94        
+        + - : sync        sync        95        
+        + 0 : sync        sync        47        
+        + + : sync        sync        95        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #47:
+      - Rank: 47
+      - Resolution: [1041, 1000]
+      - Extent: [{18971.6, 19375}, {-387.5, 0}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        94        
+        - 0 : sync        sync        46        
+        - + : sync        sync        94        
+        0 - : sync        sync        95        
+        0 + : sync        sync        95        
+        + - : match       reflect     .         
+        + 0 : match       reflect     .         
+        + + : match       reflect     .         
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #48:
+      - Rank: 48
+      - Resolution: [1042, 1000]
+      - Extent: [{0, 403.775}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : conductor   reflect     .         
+        - 0 : conductor   reflect     .         
+        - + : conductor   reflect     .         
+        0 - : sync        sync        0         
+        0 + : sync        sync        0         
+        + - : sync        sync        1         
+        + 0 : sync        sync        49        
+        + + : sync        sync        1         
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #49:
+      - Rank: 49
+      - Resolution: [1042, 1000]
+      - Extent: [{403.775, 807.55}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        0         
+        - 0 : sync        sync        48        
+        - + : sync        sync        0         
+        0 - : sync        sync        1         
+        0 + : sync        sync        1         
+        + - : sync        sync        2         
+        + 0 : sync        sync        50        
+        + + : sync        sync        2         
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #50:
+      - Rank: 50
+      - Resolution: [1042, 1000]
+      - Extent: [{807.55, 1211.32}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        1         
+        - 0 : sync        sync        49        
+        - + : sync        sync        1         
+        0 - : sync        sync        2         
+        0 + : sync        sync        2         
+        + - : sync        sync        3         
+        + 0 : sync        sync        51        
+        + + : sync        sync        3         
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #51:
+      - Rank: 51
+      - Resolution: [1042, 1000]
+      - Extent: [{1211.32, 1615.1}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        2         
+        - 0 : sync        sync        50        
+        - + : sync        sync        2         
+        0 - : sync        sync        3         
+        0 + : sync        sync        3         
+        + - : sync        sync        4         
+        + 0 : sync        sync        52        
+        + + : sync        sync        4         
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #52:
+      - Rank: 52
+      - Resolution: [1042, 1000]
+      - Extent: [{1615.1, 2018.87}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        3         
+        - 0 : sync        sync        51        
+        - + : sync        sync        3         
+        0 - : sync        sync        4         
+        0 + : sync        sync        4         
+        + - : sync        sync        5         
+        + 0 : sync        sync        53        
+        + + : sync        sync        5         
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #53:
+      - Rank: 53
+      - Resolution: [1042, 1000]
+      - Extent: [{2018.87, 2422.65}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        4         
+        - 0 : sync        sync        52        
+        - + : sync        sync        4         
+        0 - : sync        sync        5         
+        0 + : sync        sync        5         
+        + - : sync        sync        6         
+        + 0 : sync        sync        54        
+        + + : sync        sync        6         
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #54:
+      - Rank: 54
+      - Resolution: [1042, 1000]
+      - Extent: [{2422.65, 2826.42}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        5         
+        - 0 : sync        sync        53        
+        - + : sync        sync        5         
+        0 - : sync        sync        6         
+        0 + : sync        sync        6         
+        + - : sync        sync        7         
+        + 0 : sync        sync        55        
+        + + : sync        sync        7         
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #55:
+      - Rank: 55
+      - Resolution: [1042, 1000]
+      - Extent: [{2826.42, 3230.2}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        6         
+        - 0 : sync        sync        54        
+        - + : sync        sync        6         
+        0 - : sync        sync        7         
+        0 + : sync        sync        7         
+        + - : sync        sync        8         
+        + 0 : sync        sync        56        
+        + + : sync        sync        8         
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #56:
+      - Rank: 56
+      - Resolution: [1042, 1000]
+      - Extent: [{3230.2, 3633.97}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        7         
+        - 0 : sync        sync        55        
+        - + : sync        sync        7         
+        0 - : sync        sync        8         
+        0 + : sync        sync        8         
+        + - : sync        sync        9         
+        + 0 : sync        sync        57        
+        + + : sync        sync        9         
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #57:
+      - Rank: 57
+      - Resolution: [1042, 1000]
+      - Extent: [{3633.97, 4037.75}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        8         
+        - 0 : sync        sync        56        
+        - + : sync        sync        8         
+        0 - : sync        sync        9         
+        0 + : sync        sync        9         
+        + - : sync        sync        10        
+        + 0 : sync        sync        58        
+        + + : sync        sync        10        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #58:
+      - Rank: 58
+      - Resolution: [1042, 1000]
+      - Extent: [{4037.75, 4441.52}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        9         
+        - 0 : sync        sync        57        
+        - + : sync        sync        9         
+        0 - : sync        sync        10        
+        0 + : sync        sync        10        
+        + - : sync        sync        11        
+        + 0 : sync        sync        59        
+        + + : sync        sync        11        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #59:
+      - Rank: 59
+      - Resolution: [1042, 1000]
+      - Extent: [{4441.52, 4845.3}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        10        
+        - 0 : sync        sync        58        
+        - + : sync        sync        10        
+        0 - : sync        sync        11        
+        0 + : sync        sync        11        
+        + - : sync        sync        12        
+        + 0 : sync        sync        60        
+        + + : sync        sync        12        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #60:
+      - Rank: 60
+      - Resolution: [1042, 1000]
+      - Extent: [{4845.3, 5249.07}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        11        
+        - 0 : sync        sync        59        
+        - + : sync        sync        11        
+        0 - : sync        sync        12        
+        0 + : sync        sync        12        
+        + - : sync        sync        13        
+        + 0 : sync        sync        61        
+        + + : sync        sync        13        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #61:
+      - Rank: 61
+      - Resolution: [1042, 1000]
+      - Extent: [{5249.07, 5652.85}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        12        
+        - 0 : sync        sync        60        
+        - + : sync        sync        12        
+        0 - : sync        sync        13        
+        0 + : sync        sync        13        
+        + - : sync        sync        14        
+        + 0 : sync        sync        62        
+        + + : sync        sync        14        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #62:
+      - Rank: 62
+      - Resolution: [1042, 1000]
+      - Extent: [{5652.85, 6056.62}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        13        
+        - 0 : sync        sync        61        
+        - + : sync        sync        13        
+        0 - : sync        sync        14        
+        0 + : sync        sync        14        
+        + - : sync        sync        15        
+        + 0 : sync        sync        63        
+        + + : sync        sync        15        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #63:
+      - Rank: 63
+      - Resolution: [1042, 1000]
+      - Extent: [{6056.62, 6460.4}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        14        
+        - 0 : sync        sync        62        
+        - + : sync        sync        14        
+        0 - : sync        sync        15        
+        0 + : sync        sync        15        
+        + - : sync        sync        16        
+        + 0 : sync        sync        64        
+        + + : sync        sync        16        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #64:
+      - Rank: 64
+      - Resolution: [1042, 1000]
+      - Extent: [{6460.4, 6864.17}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        15        
+        - 0 : sync        sync        63        
+        - + : sync        sync        15        
+        0 - : sync        sync        16        
+        0 + : sync        sync        16        
+        + - : sync        sync        17        
+        + 0 : sync        sync        65        
+        + + : sync        sync        17        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #65:
+      - Rank: 65
+      - Resolution: [1042, 1000]
+      - Extent: [{6864.17, 7267.95}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        16        
+        - 0 : sync        sync        64        
+        - + : sync        sync        16        
+        0 - : sync        sync        17        
+        0 + : sync        sync        17        
+        + - : sync        sync        18        
+        + 0 : sync        sync        66        
+        + + : sync        sync        18        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #66:
+      - Rank: 66
+      - Resolution: [1042, 1000]
+      - Extent: [{7267.95, 7671.72}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        17        
+        - 0 : sync        sync        65        
+        - + : sync        sync        17        
+        0 - : sync        sync        18        
+        0 + : sync        sync        18        
+        + - : sync        sync        19        
+        + 0 : sync        sync        67        
+        + + : sync        sync        19        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #67:
+      - Rank: 67
+      - Resolution: [1042, 1000]
+      - Extent: [{7671.72, 8075.5}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        18        
+        - 0 : sync        sync        66        
+        - + : sync        sync        18        
+        0 - : sync        sync        19        
+        0 + : sync        sync        19        
+        + - : sync        sync        20        
+        + 0 : sync        sync        68        
+        + + : sync        sync        20        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #68:
+      - Rank: 68
+      - Resolution: [1042, 1000]
+      - Extent: [{8075.5, 8479.27}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        19        
+        - 0 : sync        sync        67        
+        - + : sync        sync        19        
+        0 - : sync        sync        20        
+        0 + : sync        sync        20        
+        + - : sync        sync        21        
+        + 0 : sync        sync        69        
+        + + : sync        sync        21        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #69:
+      - Rank: 69
+      - Resolution: [1042, 1000]
+      - Extent: [{8479.27, 8883.05}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        20        
+        - 0 : sync        sync        68        
+        - + : sync        sync        20        
+        0 - : sync        sync        21        
+        0 + : sync        sync        21        
+        + - : sync        sync        22        
+        + 0 : sync        sync        70        
+        + + : sync        sync        22        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #70:
+      - Rank: 70
+      - Resolution: [1042, 1000]
+      - Extent: [{8883.05, 9286.83}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        21        
+        - 0 : sync        sync        69        
+        - + : sync        sync        21        
+        0 - : sync        sync        22        
+        0 + : sync        sync        22        
+        + - : sync        sync        23        
+        + 0 : sync        sync        71        
+        + + : sync        sync        23        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #71:
+      - Rank: 71
+      - Resolution: [1042, 1000]
+      - Extent: [{9286.83, 9690.6}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        22        
+        - 0 : sync        sync        70        
+        - + : sync        sync        22        
+        0 - : sync        sync        23        
+        0 + : sync        sync        23        
+        + - : sync        sync        24        
+        + 0 : sync        sync        72        
+        + + : sync        sync        24        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #72:
+      - Rank: 72
+      - Resolution: [1042, 1000]
+      - Extent: [{9690.6, 10094.4}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        23        
+        - 0 : sync        sync        71        
+        - + : sync        sync        23        
+        0 - : sync        sync        24        
+        0 + : sync        sync        24        
+        + - : sync        sync        25        
+        + 0 : sync        sync        73        
+        + + : sync        sync        25        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #73:
+      - Rank: 73
+      - Resolution: [1042, 1000]
+      - Extent: [{10094.4, 10498.1}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        24        
+        - 0 : sync        sync        72        
+        - + : sync        sync        24        
+        0 - : sync        sync        25        
+        0 + : sync        sync        25        
+        + - : sync        sync        26        
+        + 0 : sync        sync        74        
+        + + : sync        sync        26        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #74:
+      - Rank: 74
+      - Resolution: [1042, 1000]
+      - Extent: [{10498.1, 10901.9}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        25        
+        - 0 : sync        sync        73        
+        - + : sync        sync        25        
+        0 - : sync        sync        26        
+        0 + : sync        sync        26        
+        + - : sync        sync        27        
+        + 0 : sync        sync        75        
+        + + : sync        sync        27        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #75:
+      - Rank: 75
+      - Resolution: [1042, 1000]
+      - Extent: [{10901.9, 11305.7}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        26        
+        - 0 : sync        sync        74        
+        - + : sync        sync        26        
+        0 - : sync        sync        27        
+        0 + : sync        sync        27        
+        + - : sync        sync        28        
+        + 0 : sync        sync        76        
+        + + : sync        sync        28        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #76:
+      - Rank: 76
+      - Resolution: [1042, 1000]
+      - Extent: [{11305.7, 11709.5}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        27        
+        - 0 : sync        sync        75        
+        - + : sync        sync        27        
+        0 - : sync        sync        28        
+        0 + : sync        sync        28        
+        + - : sync        sync        29        
+        + 0 : sync        sync        77        
+        + + : sync        sync        29        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #77:
+      - Rank: 77
+      - Resolution: [1042, 1000]
+      - Extent: [{11709.5, 12113.2}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        28        
+        - 0 : sync        sync        76        
+        - + : sync        sync        28        
+        0 - : sync        sync        29        
+        0 + : sync        sync        29        
+        + - : sync        sync        30        
+        + 0 : sync        sync        78        
+        + + : sync        sync        30        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #78:
+      - Rank: 78
+      - Resolution: [1042, 1000]
+      - Extent: [{12113.2, 12517}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        29        
+        - 0 : sync        sync        77        
+        - + : sync        sync        29        
+        0 - : sync        sync        30        
+        0 + : sync        sync        30        
+        + - : sync        sync        31        
+        + 0 : sync        sync        79        
+        + + : sync        sync        31        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #79:
+      - Rank: 79
+      - Resolution: [1042, 1000]
+      - Extent: [{12517, 12920.8}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        30        
+        - 0 : sync        sync        78        
+        - + : sync        sync        30        
+        0 - : sync        sync        31        
+        0 + : sync        sync        31        
+        + - : sync        sync        32        
+        + 0 : sync        sync        80        
+        + + : sync        sync        32        
+      - Memory footprint:
+        - Fields: 72.39 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #80:
+      - Rank: 80
+      - Resolution: [1041, 1000]
+      - Extent: [{12920.8, 13324.2}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        31        
+        - 0 : sync        sync        79        
+        - + : sync        sync        31        
+        0 - : sync        sync        32        
+        0 + : sync        sync        32        
+        + - : sync        sync        33        
+        + 0 : sync        sync        81        
+        + + : sync        sync        33        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #81:
+      - Rank: 81
+      - Resolution: [1041, 1000]
+      - Extent: [{13324.2, 13727.6}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        32        
+        - 0 : sync        sync        80        
+        - + : sync        sync        32        
+        0 - : sync        sync        33        
+        0 + : sync        sync        33        
+        + - : sync        sync        34        
+        + 0 : sync        sync        82        
+        + + : sync        sync        34        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #82:
+      - Rank: 82
+      - Resolution: [1041, 1000]
+      - Extent: [{13727.6, 14131}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        33        
+        - 0 : sync        sync        81        
+        - + : sync        sync        33        
+        0 - : sync        sync        34        
+        0 + : sync        sync        34        
+        + - : sync        sync        35        
+        + 0 : sync        sync        83        
+        + + : sync        sync        35        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #83:
+      - Rank: 83
+      - Resolution: [1041, 1000]
+      - Extent: [{14131, 14534.3}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        34        
+        - 0 : sync        sync        82        
+        - + : sync        sync        34        
+        0 - : sync        sync        35        
+        0 + : sync        sync        35        
+        + - : sync        sync        36        
+        + 0 : sync        sync        84        
+        + + : sync        sync        36        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #84:
+      - Rank: 84
+      - Resolution: [1041, 1000]
+      - Extent: [{14534.3, 14937.7}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        35        
+        - 0 : sync        sync        83        
+        - + : sync        sync        35        
+        0 - : sync        sync        36        
+        0 + : sync        sync        36        
+        + - : sync        sync        37        
+        + 0 : sync        sync        85        
+        + + : sync        sync        37        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #85:
+      - Rank: 85
+      - Resolution: [1041, 1000]
+      - Extent: [{14937.7, 15341.1}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        36        
+        - 0 : sync        sync        84        
+        - + : sync        sync        36        
+        0 - : sync        sync        37        
+        0 + : sync        sync        37        
+        + - : sync        sync        38        
+        + 0 : sync        sync        86        
+        + + : sync        sync        38        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #86:
+      - Rank: 86
+      - Resolution: [1041, 1000]
+      - Extent: [{15341.1, 15744.5}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        37        
+        - 0 : sync        sync        85        
+        - + : sync        sync        37        
+        0 - : sync        sync        38        
+        0 + : sync        sync        38        
+        + - : sync        sync        39        
+        + 0 : sync        sync        87        
+        + + : sync        sync        39        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #87:
+      - Rank: 87
+      - Resolution: [1041, 1000]
+      - Extent: [{15744.5, 16147.9}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        38        
+        - 0 : sync        sync        86        
+        - + : sync        sync        38        
+        0 - : sync        sync        39        
+        0 + : sync        sync        39        
+        + - : sync        sync        40        
+        + 0 : sync        sync        88        
+        + + : sync        sync        40        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #88:
+      - Rank: 88
+      - Resolution: [1041, 1000]
+      - Extent: [{16147.9, 16551.3}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        39        
+        - 0 : sync        sync        87        
+        - + : sync        sync        39        
+        0 - : sync        sync        40        
+        0 + : sync        sync        40        
+        + - : sync        sync        41        
+        + 0 : sync        sync        89        
+        + + : sync        sync        41        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #89:
+      - Rank: 89
+      - Resolution: [1041, 1000]
+      - Extent: [{16551.3, 16954.7}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        40        
+        - 0 : sync        sync        88        
+        - + : sync        sync        40        
+        0 - : sync        sync        41        
+        0 + : sync        sync        41        
+        + - : sync        sync        42        
+        + 0 : sync        sync        90        
+        + + : sync        sync        42        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #90:
+      - Rank: 90
+      - Resolution: [1041, 1000]
+      - Extent: [{16954.7, 17358.1}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        41        
+        - 0 : sync        sync        89        
+        - + : sync        sync        41        
+        0 - : sync        sync        42        
+        0 + : sync        sync        42        
+        + - : sync        sync        43        
+        + 0 : sync        sync        91        
+        + + : sync        sync        43        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #91:
+      - Rank: 91
+      - Resolution: [1041, 1000]
+      - Extent: [{17358.1, 17761.4}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        42        
+        - 0 : sync        sync        90        
+        - + : sync        sync        42        
+        0 - : sync        sync        43        
+        0 + : sync        sync        43        
+        + - : sync        sync        44        
+        + 0 : sync        sync        92        
+        + + : sync        sync        44        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #92:
+      - Rank: 92
+      - Resolution: [1041, 1000]
+      - Extent: [{17761.4, 18164.8}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        43        
+        - 0 : sync        sync        91        
+        - + : sync        sync        43        
+        0 - : sync        sync        44        
+        0 + : sync        sync        44        
+        + - : sync        sync        45        
+        + 0 : sync        sync        93        
+        + + : sync        sync        45        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #93:
+      - Rank: 93
+      - Resolution: [1041, 1000]
+      - Extent: [{18164.8, 18568.2}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        44        
+        - 0 : sync        sync        92        
+        - + : sync        sync        44        
+        0 - : sync        sync        45        
+        0 + : sync        sync        45        
+        + - : sync        sync        46        
+        + 0 : sync        sync        94        
+        + + : sync        sync        46        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #94:
+      - Rank: 94
+      - Resolution: [1041, 1000]
+      - Extent: [{18568.2, 18971.6}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        45        
+        - 0 : sync        sync        93        
+        - + : sync        sync        45        
+        0 - : sync        sync        46        
+        0 + : sync        sync        46        
+        + - : sync        sync        47        
+        + 0 : sync        sync        95        
+        + + : sync        sync        47        
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+    - Domain #95:
+      - Rank: 95
+      - Resolution: [1041, 1000]
+      - Extent: [{18971.6, 19375}, {0, 387.5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : sync        sync        46        
+        - 0 : sync        sync        94        
+        - + : sync        sync        46        
+        0 - : sync        sync        47        
+        0 + : sync        sync        47        
+        + - : match       reflect     .         
+        + 0 : match       reflect     .         
+        + + : match       reflect     .         
+      - Memory footprint:
+        - Fields: 72.32 MB
+        - Particles:
+          - Species #1 (e-): 9.31 GB
+          - Species #2 (e+): 9.31 GB
+
+

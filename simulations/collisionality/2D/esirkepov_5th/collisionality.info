@@ -1,0 +1,114 @@
+﻿
+
+╔══════════════════════════════════════════════════════════╗
+║ Entity v1.3.0                                            ║
+╚══════════════════════════════════════════════════════════╝
+
+    Backend
+    - Build hash: 7f2a30b5deca25e0de91e239274b55dcb80956af-mod
+    - CXX: GNU GCC/G++ EDG g++ 11.5 mode [C++17]
+    - CUDA: 12.8.0
+    - MPI: 3.1
+    - GPU-aware MPI: OFF
+    - Kokkos: 4.7.0
+    - ADIOS2: 2.10.2
+    - Precision: single
+    - Debug: OFF
+
+    Compilation flags
+    - SINGLE_PRECISION: ON
+    - OUTPUT_ENABLED: ON
+    - DEBUG: OFF
+    - CUDA_ENABLED: ON
+    - HIP_ENABLED: OFF
+    - DEVICE_ENABLED: ON
+    - MPI_ENABLED: ON
+    - GPU_AWARE_MPI: OFF
+
+    Configuration
+    - Name: collisionality
+    - Problem generator: streaming
+    - Engine: srpic
+    - Metric: minkowski
+    - Timestep [dt]: 6.905e-03
+    - Runtime: 1.001e+03 [144960 steps]
+
+    Global domain
+    - Resolution: [1024, 1024]
+    - Extent: [{-10, 10}, {-10, 10}]
+    - Fiducial cell size [dx0]: 1.381e-02
+    - Boundary conditions:
+      - Fields: [{periodic, periodic}, {periodic, periodic}]
+      - Particles: [{periodic, periodic}, {periodic, periodic}]
+    - Domain decomposition: [1, 1] [1 total]
+
+    Fiducial parameters
+    - Particles per cell [ppc0]: 16.0
+    - Larmor radius [larmor0]: 1.000e+00 [72.408 dx0]
+    - Larmor frequency [omegaB0 * dt]: 6.905e-03
+    - Skin depth [skindepth0]: 1.000e+00 [72.408 dx0]
+    - Plasma frequency [omp0 * dt]: 6.905e-03
+    - Magnetization [sigma0]: 1.000e+00
+
+    Particles
+    - Species #1:
+      - Label: e-_p
+      - Mass: 1.0
+      - Charge: -1.0
+      - Max #: 10000000 [per domain]
+      - Pusher: boris
+      - GCA: OFF
+      - Cooling: none
+      - # of payloads: 0
+    - Species #2:
+      - Label: e+_p
+      - Mass: 100.0
+      - Charge: 1.0
+      - Max #: 10000000 [per domain]
+      - Pusher: boris
+      - GCA: OFF
+      - Cooling: none
+      - # of payloads: 0
+    - Species #3:
+      - Label: e-_b
+      - Mass: 1.0
+      - Charge: -1.0
+      - Max #: 10000000 [per domain]
+      - Pusher: boris
+      - GCA: OFF
+      - Cooling: none
+      - # of payloads: 0
+    - Species #4:
+      - Label: e+_b
+      - Mass: 100.0
+      - Charge: 1.0
+      - Max #: 10000000 [per domain]
+      - Pusher: boris
+      - GCA: OFF
+      - Cooling: none
+      - # of payloads: 0
+
+    Domains
+    - Domain #0:
+      - Rank: 0
+      - Resolution: [1024, 1024]
+      - Extent: [{-10, 10}, {-10, 10}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : periodic    periodic    .         
+        - 0 : periodic    periodic    .         
+        - + : periodic    periodic    .         
+        0 - : periodic    periodic    .         
+        0 + : periodic    periodic    .         
+        + - : periodic    periodic    .         
+        + 0 : periodic    periodic    .         
+        + + : periodic    periodic    .         
+      - Memory footprint:
+        - Fields: 73.13 MB
+        - Particles:
+          - Species #1 (e-_p): 476.84 MB
+          - Species #2 (e+_p): 476.84 MB
+          - Species #3 (e-_b): 476.84 MB
+          - Species #4 (e+_b): 476.84 MB
+
+

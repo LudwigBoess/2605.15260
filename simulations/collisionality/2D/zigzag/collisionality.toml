@@ -1,0 +1,93 @@
+[simulation]
+  name    = "collisionality"
+  engine  = "srpic"
+  runtime = 1.0e6
+
+[grid]
+  resolution = [4096, 4096]
+  extent     = [[0.0, 409.6], [0.0, 409.6]]
+
+  [grid.metric]
+    metric = "minkowski"
+
+  [grid.boundaries]
+    fields    = [["PERIODIC"], ["PERIODIC"]]
+    particles = [["PERIODIC"], ["PERIODIC"]]
+
+[scales]
+  larmor0    = 1.0
+  skindepth0 = 1.0
+
+[algorithms]
+  current_filters = 0
+
+  [algorithms.timestep]
+    CFL = 0.7071
+
+[particles]
+  ppc0 = 96.0
+  use_weights = true
+
+  [[particles.species]]
+    label    = "e-_p"
+    mass     = 1.0
+    charge   = -1.0
+    maxnpart = 4.05e8
+
+  [[particles.species]]
+    label    = "e+_p"
+    mass     = 1.0
+    charge   = 1.0
+    maxnpart = 4.05e8
+
+  [[particles.species]]
+    label    = "e-_b"
+    mass     = 1.0
+    charge   = -1.0
+    maxnpart = 4.05e8
+
+  [[particles.species]]
+    label    = "e+_b"
+    mass     = 1.0
+    charge   = 1.0
+    maxnpart = 4.05e8
+
+[setup]
+  # Drift 4-velocities for each species in all 3 directions
+  #   @type: array of floats (length = nspec)
+  #   @default: [ 0.0, ... ]
+  drifts_in_x = [0.0, 0.0, 0.0, 0.0]
+  drifts_in_y = [0.0, 0.0, 0.0, 0.0]
+  drifts_in_z = [0.0, 0.0, 0.0, 0.0]
+  # Pair-wise species densities in units of n0
+  #   @type: array of floats (length = nspec/2)
+  #   @default: [ 2 / nspec, ... ]
+  densities = [0.5, 0.5]
+  # Species temperatures in units of m0 (c^2)
+  #   @type: array of floats (length = nspec)
+  #   @default: [ 0.0, ... ]
+  temperatures = [1e-1, 1e-1, 1e-1, 1e-1]
+
+[output]
+  interval_time = 100.0
+  format = "BPFile"
+
+  [output.fields]
+    enable = false
+    quantities = [
+      "N_1_2",
+      "N_3_4",
+      "E",
+      "B"
+    ]
+
+  [output.particles]
+    enable = true
+
+[diagnostics]
+  log_level = "WARNING"
+  blocking_timers = true
+
+[checkpoint]
+  interval = 10000
+  keep = 1

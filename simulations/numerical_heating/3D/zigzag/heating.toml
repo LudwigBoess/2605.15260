@@ -1,0 +1,77 @@
+[simulation]
+  name    = "heating_cold"
+  engine  = "srpic"
+  runtime = 10001.1
+
+[grid]
+  resolution = [256, 256, 256]
+  extent     = [[-5.0, 5.0], [-5.0, 5.0], [-5.0, 5.0]]
+
+  [grid.metric]
+    metric = "minkowski"
+
+  [grid.boundaries]
+    fields    = [["PERIODIC"], ["PERIODIC"]]
+    particles = [["PERIODIC"], ["PERIODIC"]]
+
+[scales]
+  larmor0    = 1.0
+  skindepth0 = 1.0
+
+[algorithms]
+  current_filters = 0
+
+  [algorithms.timestep]
+    CFL = 0.95
+
+[particles]
+  ppc0 = 16.0
+
+  [[particles.species]]
+    label    = "e-"
+    mass     = 1.0
+    charge   = -1.0
+    maxnpart = 1e8
+
+  [[particles.species]]
+    label    = "e+"
+    mass     = 1.0
+    charge   = 1.0
+    maxnpart = 1e8
+
+[setup]
+  # Drift 4-velocities for each species in all 3 directions
+  #   @type: array of floats (length = nspec)
+  #   @default: [ 0.0, ... ]
+  drifts_in_x = [-0.1, -0.1]
+  drifts_in_y = [0.0, 0.0]
+  drifts_in_z = [0.0, 0.0]
+  # Pair-wise species densities in units of n0
+  #   @type: array of floats (length = nspec/2)
+  #   @default: [ 2 / nspec, ... ]
+  densities = [1.0]
+  # Species temperatures in units of m0 (c^2)
+  #   @type: array of floats (length = nspec)
+  #   @default: [ 0.0, ... ]
+  temperatures = [1.0e-4, 1.0e-4]
+
+[output]
+  interval_time = 100.0
+  format = "BPFile"
+
+  [output.fields]
+    quantities = ["N", "T22"]
+
+  [output.particles]
+    enable = false
+
+  [output.spectra]
+    enable = true
+
+[diagnostics]
+  colored_stdout = false
+  log_level = "WARNING"
+  blocking_timers = true
+
+[checkpoint]
+  keep = 1

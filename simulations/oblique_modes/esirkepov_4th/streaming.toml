@@ -1,0 +1,86 @@
+[simulation]
+  name    = "oblique_modes_hot_8filters"
+  engine  = "srpic"
+  runtime = 3000.0
+
+[grid]
+  resolution = [256, 256]
+  extent     = [[-12.8, 12.8], [-12.8, 12.8]]
+
+  [grid.metric]
+    metric = "minkowski"
+
+  [grid.boundaries]
+    fields    = [["PERIODIC"], ["PERIODIC"]]
+    particles = [["PERIODIC"], ["PERIODIC"]]
+
+[scales]
+  larmor0    = 1.0
+  skindepth0 = 1.0
+
+[algorithms]
+  current_filters = 8
+
+  [algorithms.timestep]
+    CFL = 0.7071067812
+
+[particles]
+  ppc0 = 16.0
+
+  [[particles.species]]
+    label    = "e-_p"
+    mass     = 1.0
+    charge   = -1.0
+    maxnpart = 1e7
+
+  [[particles.species]]
+    label    = "e+_p"
+    mass     = 1.0
+    charge   = 1.0
+    maxnpart = 1e7
+
+  [[particles.species]]
+    label    = "e-_b"
+    mass     = 1.0
+    charge   = -1.0
+    maxnpart = 1e7
+
+  [[particles.species]]
+    label    = "e+_b"
+    mass     = 1.0
+    charge   = 1.0
+    maxnpart = 1e7
+
+[setup]
+  # Drift 4-velocities for each species in all 3 directions
+  #   @type: array of floats (length = nspec)
+  #   @default: [ 0.0, ... ]
+  drifts_in_x = [100.0, 100.0, 0.0, 0.0]
+  drifts_in_y = [0.0, 0.0, 0.0, 0.0]
+  drifts_in_z = [0.0, 0.0, 0.0, 0.0]
+  # Pair-wise species densities in units of n0
+  #   @type: array of floats (length = nspec/2)
+  #   @default: [ 2 / nspec, ... ]
+  densities = [0.0001, 1.0]
+  # Species temperatures in units of m0 (c^2)
+  #   @type: array of floats (length = nspec)
+  #   @default: [ 0.0, ... ]
+  temperatures = [1e-8, 1e-8, 1e-3, 1e-3]
+
+[output]
+  format = "BPFile"
+  interval_time = 500.0
+
+  [output.fields]
+    quantities = [
+      "E"
+    ]
+
+  [output.particles]
+    enable = false
+
+  [output.spectra]
+    enable = false
+
+[output.stats]
+   interval_time = 10.0

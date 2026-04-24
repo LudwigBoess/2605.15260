@@ -1,0 +1,96 @@
+﻿
+
+╔══════════════════════════════════════════════════════════╗
+║ Entity v1.3.0                                            ║
+╚══════════════════════════════════════════════════════════╝
+
+    Backend
+    - Build hash: 6a079313aa05e018cfedfd0da1f8c0ae731a0f42
+    - CXX: Clang/LLVM 21.0.0git (icx 2025.2.0.20250605) [C++17]
+    - MPI: 4.1
+    - GPU-aware MPI: OFF
+    - Kokkos: 4.7.0
+    - ADIOS2: 2.10.2
+    - Precision: single
+    - Debug: OFF
+
+    Compilation flags
+    - SINGLE_PRECISION: ON
+    - OUTPUT_ENABLED: ON
+    - DEBUG: OFF
+    - CUDA_ENABLED: OFF
+    - HIP_ENABLED: OFF
+    - DEVICE_ENABLED: ON
+    - MPI_ENABLED: ON
+    - GPU_AWARE_MPI: OFF
+
+    Configuration
+    - Name: _min3
+    - Problem generator: streaming
+    - Engine: srpic
+    - Metric: minkowski
+    - Deposit: zigzag
+    - Timestep [dt]: 1.953e-02
+    - Runtime: 1.001e+04 [512522 steps]
+
+    Global domain
+    - Resolution: [256, 256]
+    - Extent: [{-5, 5}, {-5, 5}]
+    - Fiducial cell size [dx0]: 2.762e-02
+    - Boundary conditions:
+      - Fields: [{periodic, periodic}, {periodic, periodic}]
+      - Particles: [{periodic, periodic}, {periodic, periodic}]
+    - Domain decomposition: [1, 1] [1 total]
+
+    Fiducial parameters
+    - Particles per cell [ppc0]: 32.0
+    - Larmor radius [larmor0]: 1.000e+00 [36.204 dx0]
+    - Larmor frequency [omegaB0 * dt]: 1.953e-02
+    - Skin depth [skindepth0]: 1.000e+00 [36.204 dx0]
+    - Plasma frequency [omp0 * dt]: 1.953e-02
+    - Magnetization [sigma0]: 1.000e+00
+
+    Particles
+    - Species #1:
+      - Label: e-
+      - Mass: 1.0
+      - Charge: -1.0
+      - Max #: 100000000 [per domain]
+      - Pusher: boris
+      - GCA: OFF
+      - Cooling: none
+      - # of real-value payloads: 0
+      - # of integer-value payloads: 0
+    - Species #2:
+      - Label: e+
+      - Mass: 1.0
+      - Charge: 1.0
+      - Max #: 100000000 [per domain]
+      - Pusher: boris
+      - GCA: OFF
+      - Cooling: none
+      - # of real-value payloads: 0
+      - # of integer-value payloads: 0
+
+    Domains
+    - Domain #0:
+      - Rank: 0
+      - Resolution: [256, 256]
+      - Extent: [{-5, 5}, {-5, 5}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : periodic    periodic    .         
+        - 0 : periodic    periodic    .         
+        - + : periodic    periodic    .         
+        0 - : periodic    periodic    .         
+        0 + : periodic    periodic    .         
+        + - : periodic    periodic    .         
+        + 0 : periodic    periodic    .         
+        + + : periodic    periodic    .         
+      - Memory footprint:
+        - Fields: 4.64 MB
+        - Particles:
+          - Species #1 (e-): 4.66 GB
+          - Species #2 (e+): 4.66 GB
+
+

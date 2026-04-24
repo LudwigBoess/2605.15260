@@ -1,0 +1,87 @@
+﻿
+
+╔══════════════════════════════════════════════════════════╗
+║ Entity v1.4.0                                            ║
+╚══════════════════════════════════════════════════════════╝
+
+    Backend
+    - Build hash: 2d9a5ae08d4900dfa9112575a2e2d395d4d8cc00
+    - CXX: Clang/LLVM 21.0.0git (icx 2025.2.0.20250605) [C++20]
+    - MPI: OFF
+    - Kokkos: 5.0.0
+    - ADIOS2: 2.11.0
+    - Precision: double
+    - Debug: OFF
+
+    Compilation flags
+    - SINGLE_PRECISION: OFF
+    - OUTPUT_ENABLED: ON
+    - DEBUG: OFF
+    - CUDA_ENABLED: OFF
+    - HIP_ENABLED: OFF
+    - DEVICE_ENABLED: ON
+    - MPI_ENABLED: OFF
+    - GPU_AWARE_MPI: OFF
+
+    Configuration
+    - Name: quiet_plasma
+    - Problem generator: streaming
+    - Engine: srpic
+    - Metric: minkowski
+    - Deposit: esirkepov
+    - Interpolation order: 5
+    - Timestep [dt]: 1.953e-02
+    - Runtime: 1.000e+04 [512056 steps]
+
+    Global domain
+    - Resolution: [65536]
+    - Extent: [{0, 2560}]
+    - Fiducial cell size [dx0]: 3.906e-02
+    - Boundary conditions:
+      - Fields: [{periodic, periodic}]
+      - Particles: [{periodic, periodic}]
+    - Domain decomposition: [1] [1 total]
+
+    Fiducial parameters
+    - Particles per cell [ppc0]: 16.0
+    - Larmor radius [larmor0]: 1.000e+00 [25.600 dx0]
+    - Larmor frequency [omegaB0 * dt]: 1.953e-02
+    - Skin depth [skindepth0]: 1.000e+00 [25.600 dx0]
+    - Plasma frequency [omp0 * dt]: 1.953e-02
+    - Magnetization [sigma0]: 1.000e+00
+
+    Particles
+    - Species #1:
+      - Label: e-
+      - Mass: 1.0
+      - Charge: -1.0
+      - Max #: 100000000 [per domain]
+      - Pusher: boris
+      - Radiative drag: none
+      - # of real-value payloads: 0
+      - # of integer-value payloads: 0
+    - Species #2:
+      - Label: e+
+      - Mass: 1.0
+      - Charge: 1.0
+      - Max #: 100000000 [per domain]
+      - Pusher: boris
+      - Radiative drag: none
+      - # of real-value payloads: 0
+      - # of integer-value payloads: 0
+
+    Domains
+    - Domain #0:
+      - Resolution: [65536]
+      - Extent: [{0, 2560}]
+      - Boundary conditions:
+            [flds]      [prtl]      [neighbor]
+        - : periodic    periodic    .         
+        + : periodic    periodic    .         
+      - Memory footprint:
+        - Fields: 9.00 MB
+        - Particles:
+          - Species #1 (e-): 4.66 GB
+          - Species #2 (e+): 4.66 GB
+
+

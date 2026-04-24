@@ -1,0 +1,113 @@
+﻿
+
+╔══════════════════════════════════════════════════════════╗
+║ Entity v1.4.0                                            ║
+╚══════════════════════════════════════════════════════════╝
+
+    Backend
+    - Build hash: 2d9a5ae08d4900dfa9112575a2e2d395d4d8cc00
+    - CXX: Clang/LLVM 21.0.0git (icx 2025.2.0.20250605) [C++20]
+    - MPI: OFF
+    - Kokkos: 5.0.0
+    - ADIOS2: 2.11.0
+    - Precision: double
+    - Debug: OFF
+
+    Compilation flags
+    - SINGLE_PRECISION: OFF
+    - OUTPUT_ENABLED: ON
+    - DEBUG: OFF
+    - CUDA_ENABLED: OFF
+    - HIP_ENABLED: OFF
+    - DEVICE_ENABLED: ON
+    - MPI_ENABLED: OFF
+    - GPU_AWARE_MPI: OFF
+
+    Configuration
+    - Name: oblique_modes
+    - Problem generator: streaming
+    - Engine: srpic
+    - Metric: minkowski
+    - Deposit: esirkepov
+    - Interpolation order: 7
+    - Timestep [dt]: 5.000e-02
+    - Runtime: 3.000e+03 [59999 steps]
+
+    Global domain
+    - Resolution: [256, 256]
+    - Extent: [{-12.8, 12.8}, {-12.8, 12.8}]
+    - Fiducial cell size [dx0]: 7.071e-02
+    - Boundary conditions:
+      - Fields: [{periodic, periodic}, {periodic, periodic}]
+      - Particles: [{periodic, periodic}, {periodic, periodic}]
+    - Domain decomposition: [1, 1] [1 total]
+
+    Fiducial parameters
+    - Particles per cell [ppc0]: 16.0
+    - Larmor radius [larmor0]: 1.000e+00 [14.142 dx0]
+    - Larmor frequency [omegaB0 * dt]: 5.000e-02
+    - Skin depth [skindepth0]: 1.000e+00 [14.142 dx0]
+    - Plasma frequency [omp0 * dt]: 5.000e-02
+    - Magnetization [sigma0]: 1.000e+00
+
+    Particles
+    - Species #1:
+      - Label: e-_p
+      - Mass: 1.0
+      - Charge: -1.0
+      - Max #: 10000000 [per domain]
+      - Pusher: boris
+      - Radiative drag: none
+      - # of real-value payloads: 0
+      - # of integer-value payloads: 0
+    - Species #2:
+      - Label: e+_p
+      - Mass: 1.0
+      - Charge: 1.0
+      - Max #: 10000000 [per domain]
+      - Pusher: boris
+      - Radiative drag: none
+      - # of real-value payloads: 0
+      - # of integer-value payloads: 0
+    - Species #3:
+      - Label: e-_b
+      - Mass: 1.0
+      - Charge: -1.0
+      - Max #: 10000000 [per domain]
+      - Pusher: boris
+      - Radiative drag: none
+      - # of real-value payloads: 0
+      - # of integer-value payloads: 0
+    - Species #4:
+      - Label: e+_b
+      - Mass: 1.0
+      - Charge: 1.0
+      - Max #: 10000000 [per domain]
+      - Pusher: boris
+      - Radiative drag: none
+      - # of real-value payloads: 0
+      - # of integer-value payloads: 0
+
+    Domains
+    - Domain #0:
+      - Resolution: [256, 256]
+      - Extent: [{-12.8, 12.8}, {-12.8, 12.8}]
+      - Boundary conditions:
+              [flds]      [prtl]      [neighbor]
+        - - : periodic    periodic    .         
+        - 0 : periodic    periodic    .         
+        - + : periodic    periodic    .         
+        0 - : periodic    periodic    .         
+        0 + : periodic    periodic    .         
+        + - : periodic    periodic    .         
+        + 0 : periodic    periodic    .         
+        + + : periodic    periodic    .         
+      - Memory footprint:
+        - Fields: 9.72 MB
+        - Particles:
+          - Species #1 (e-_p): 629.43 MB
+          - Species #2 (e+_p): 629.43 MB
+          - Species #3 (e-_b): 629.43 MB
+          - Species #4 (e+_b): 629.43 MB
+
+
