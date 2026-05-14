@@ -1,3 +1,5 @@
+include(joinpath(@__DIR__, "config.jl"))
+
 using CairoMakie, MakieHelper
 using EntityTools
 using StatsBase
@@ -5,25 +7,8 @@ using Printf
 using ProgressMeter
 using DelimitedFiles
 
-
 abs_sum(x) = sum(abs.(x))
 abs_mean(x) = sum(abs.(x)) / length(x)
-
-function write_data()
-
-
-            # read one file to check if it exists
-            #info = EntityData(sim_path * deposits[j] * "/_" * runs[i])
-            #data = read_field(info, ["T22"], verbose=true; t=[0.0, Inf], reduction_function = mean)
-            #fi = sim_path * deposits[j] * "/_" * runs[i] * "/_" * runs[i] * "_stats.csv"
-            #stats = readdlm(fi, ',', skipstart=1)
-            #data["B3"] = stats[:, 5]
-            #println(length(data["t"]), " ", length(data["B3"]), " ", length(data["T22"]))
-            #out_file = sim_path * "/data/heating_new2_$(deposits[j])_$(runs[i]).txt"
-            #writedlm(out_file, hcat(info.times, data["B3"], data["T22"]))
-
-
-end
 
 function Fig_16(sim_path, deposits, t, plot_name)
 
@@ -75,7 +60,6 @@ function Fig_16(sim_path, deposits, t, plot_name)
         end
     end
 
-    #axislegend(ax_Bz, framevisible=false)
     @info "saving"
     save(plot_name, f)
 
@@ -94,13 +78,12 @@ plot_name = plot_path * "Fig16.pdf"
 #Fig_16(sim_path, deposits, t, plot_name)
 
 
-
 function Fig_17(sim_path, deposits, t, plot_name)
 
     deposit_names = [L"\text{Zigzag} \: + \: 5 \mathcal{F}", L"\mathrm{Esirkepov} \: \mathcal{S}_3 \: + \: 5 \mathcal{F}"]
-    runs = ["Yee", "Lehe", "min3D", "min1D-1", "min1D-2"]#, "min1D-3", "min1D-4", "min1D-5"]
+    runs = ["Yee", "Lehe", "min3D", "min1D-1", "min1D-2"]
     arr_labels = [L"\textbf{Yee}", L"\textbf{Lehe3D}\leftrightarrow", 
-            L"\textbf{min3D1}", L"\textbf{min3D2}", L"\textbf{min3D3}"]#, L"\textbf{min1D-3}", L"\textbf{min1D-4}", L"\textbf{min1D-5}"]
+            L"\textbf{min3D1}", L"\textbf{min3D2}", L"\textbf{min3D3}"]
     Nruns = length(runs)
 
     cmap = :seaborn_colorblind

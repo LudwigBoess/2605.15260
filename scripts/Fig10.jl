@@ -1,3 +1,5 @@
+include(joinpath(@__DIR__, "config.jl"))
+
 @info "loading packages"
 using CairoMakie,MakieHelper
 using MakieExtra
@@ -16,22 +18,17 @@ function Fig10(sim_paths, run_labels, t, plot_name)
     x_l = (-128.0, 128.)
     y_l = x_l
     c_map = Reverse(:RdBu)
-    #c_map = :bwr
-    myscale = Symlog10(-0.01, 0.01, linscale=1.0)
 
     jz_lim = (0.01, 1.0)
     jz_lim = (-0.3, 0.3)
-    #jz_lim = (-1, 1)
 
     zoom_center1 = [-100.0, 64.0] ./ 2
     zoom_center2 = [64.0, 96.0] ./ 2
     zoom_width = 32.0 .* [-1.0, 1.0] ./ 2
 
     Colorbar(f[2, Nruns+1], limits=jz_lim, 
-             colormap=c_map, #scale=myscale,
-             #ticks = [-1, -0.1, -0.01, 0, 0.01, 0.1, 1],
+             colormap=c_map,
              ticks = [-0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3],
-             #minorticksvisible=false,
              label=L"J_z", 
              width=20, height=280
              )
@@ -59,19 +56,16 @@ function Fig10(sim_paths, run_labels, t, plot_name)
         ylims!(ax, y_l )
 
         image!(ax, x_l, y_l, J["J3"], 
-                colormap=c_map, colorrange=jz_lim, #colorscale=myscale,
+                colormap=c_map, colorrange=jz_lim,
                 rasterize=2)
         if i > 1
             hideydecorations!(ax, ticks = false)
         end
 
-        #text!(ax, (-128+16, -128+16), text = run_labels[i], align = (:left, :center),
-        #        offset = (0, 0), color = :black)
 
         textlabel!(ax, Point2f(-128+4, -128+16), text = run_labels[i], text_align = (:left, :center),
                     offset = (0, 0), text_color = :black, alpha=0.75, strokewidth=0)
-        # text!(ax, (-512+64, -512+64), text = run_labels[i], align = (:left, :center),
-        #         offset = (0, 0), color = :white)
+
 
         ga = f[1, i] = GridLayout()
         colgap!(ga, 0)
@@ -81,7 +75,7 @@ function Fig10(sim_paths, run_labels, t, plot_name)
         xlims!(ax_zoom1, zoom_center1[1] .+ zoom_width )
         ylims!(ax_zoom1, zoom_center1[2] .+ zoom_width )
         heatmap!(ax_zoom1, J["X1"], J["X2"], J["J3"], 
-                colormap=c_map, colorrange=jz_lim, #colorscale=myscale,
+                colormap=c_map, colorrange=jz_lim,
                 rasterize=2)
         hidexdecorations!(ax_zoom1, ticks = false)
         hideydecorations!(ax_zoom1, ticks = false)
@@ -90,7 +84,7 @@ function Fig10(sim_paths, run_labels, t, plot_name)
         xlims!(ax_zoom2, zoom_center2[1] .+ zoom_width )
         ylims!(ax_zoom2, zoom_center2[2] .+ zoom_width )
         heatmap!(ax_zoom2, J["X1"], J["X2"], J["J3"], 
-                colormap=c_map, colorrange=jz_lim, #colorscale=myscale,
+                colormap=c_map, colorrange=jz_lim,
                 rasterize=2)
         hidexdecorations!(ax_zoom2, ticks = false)
         hideydecorations!(ax_zoom2, ticks = false)

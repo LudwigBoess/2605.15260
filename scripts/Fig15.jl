@@ -1,3 +1,5 @@
+include(joinpath(@__DIR__, "config.jl"))
+
 using CairoMakie, MakieHelper
 using Printf
 using StatsBase
@@ -13,13 +15,10 @@ function Fig15(sim_path, deposits, t, plot_name)
     Nruns = length(runs)
 
     f = Figure(size=(1150, 830))
-    #Ngrid = f[1, 1] = GridLayout()
     Bzgrid = f[1, 1] = GridLayout()
     Bfiltergrid = f[2, 1] = GridLayout()
     Bkgrid = f[3, 1] = GridLayout()
     N_lim = (0.5, 1.5)
-    #N_lim = (1.e-2, 1.0)
-    #Bz_lim = (1.e-3, 1.0)
     Bz_lim = (-1.0, 1.0)
     Bk_lim = (1.e-4, 1.e2)
     myscale = Symlog10(1.e-4, linscale=1.e-4)
@@ -100,7 +99,6 @@ function Fig15(sim_path, deposits, t, plot_name)
 
             B_image = real(ifft(k_B3))
             println(size(B_image))
-            #B_image = B_image ./ maximum(abs.(B_image))
             println(size(B_image))
 
             heatmap!(ax, data["X1"], data["X2"], B_image,

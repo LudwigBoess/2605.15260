@@ -1,3 +1,5 @@
+include(joinpath(@__DIR__, "config.jl"))
+
 @info "loading packages"
 using CairoMakie, MakieHelper
 using ColorSchemes
@@ -10,7 +12,7 @@ using DelimitedFiles
 
 function Fig07(sim_paths, sims, plot_name)
 
-    f = Figure(size=(650, 600))
+    f = Figure(size=(650, 600), figure_padding=(5, 30, 5, 15))
 
     ax = Axis(f[1, 1], xlabel=L"\text{Time} \:\: t \:\: \left[ \omega_p^{-1} \right]", ylabel=L"\langle E_y^2 / 8\pi \rangle \:\: \left[ n_b m_e c^2 \right]",
                 aspect = 1,
@@ -47,14 +49,15 @@ function Fig07(sim_paths, sims, plot_name)
 
     end
 
-    lines!(ax, [0.0], [0.0], 
+    l0 = lines!(ax, [0.0], [0.0],
                 color=:black, linestyle=linestyles[1],
-                linewidth=2, label=L" 0 \: \mathcal{F}")
-    lines!(ax, [0.0], [0.0], 
+                linewidth=2)
+    l8 = lines!(ax, [0.0], [0.0],
                 color=:black, linestyle=linestyles[2],
-                linewidth=2, label=L" 8 \: \mathcal{F}")
+                linewidth=2)
 
     axislegend(ax; position = :lt, nbanks = 2, framevisible = false)
+    axislegend(ax, [l0, l8], [L" 0 \: \mathcal{F}", L" 8 \: \mathcal{F}"]; position = :rb, framevisible = false)
     resize_to_layout!(f)
     save(plot_name, f)
 end
@@ -62,14 +65,9 @@ end
 set_light_theme!(fontsize=27)
 
 sims = ["Zigzag", 
-            #L"\text{Esirkepov} \:\: \mathcal{S}_1", 
             L"\text{Esirkepov} \:\: \mathcal{S}_2", 
             L"\text{Esirkepov} \:\: \mathcal{S}_3", 
-            #L"\text{Esirkepov} \:\: \mathcal{S}_4", 
-            L"\text{Esirkepov} \:\: \mathcal{S}_5",
-            #L"\text{Esirkepov} \:\: \mathcal{S}_6", 
-            #L"\text{Esirkepov} \:\: \mathcal{S}_7", 
-            #L"\text{Esirkepov} \:\: \mathcal{S}_8", 
+            L"\text{Esirkepov} \:\: \mathcal{S}_5", 
             L"\text{Esirkepov} \:\: \mathcal{S}_9",
             L"\text{Zigzag} + 8 \mathcal{F}",
             L"\text{Esirkepov} \:\: \mathcal{S}_{2} + 8 \mathcal{F}"
@@ -78,9 +76,8 @@ sims = ["Zigzag",
 
 sim_paths = data_path * "oblique_modes_backup/" .*
             ["zigzag", 
-            #"esirkepov_1st", 
-            "esirkepov_2nd", "esirkepov_3rd", #"esirkepov_4th", 
-            "esirkepov_5th", #"esirkepov_6th", "esirkepov_7th", "esirkepov_8th", 
+            "esirkepov_2nd", "esirkepov_3rd", 
+            "esirkepov_5th", 
             "esirkepov_9th"
             ] .* "/oblique_modes"
 

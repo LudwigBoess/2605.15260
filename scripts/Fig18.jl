@@ -1,9 +1,10 @@
+include(joinpath(@__DIR__, "config.jl"))
+
 using CairoMakie, MakieHelper
 using Printf
 using StatsBase
 using EntityTools
 using DelimitedFiles
-
 
 
 function Fig18(sim_path, deposits, t, plot_name)
@@ -39,8 +40,6 @@ function Fig18(sim_path, deposits, t, plot_name)
             data = read_field(info, ["N_1", "N_2", "B3", "T22_1"], verbose=true, slice = [ [x_l[1], x_l[2]], [y_l[1], y_l[2]] ]; t)
             
             Temp = data["T22_1"] ./ data["N_1"]
-            #Temp = @. get_Temp(data["N_1"], data["T00_1"], data["V1_1"], data["V2_1"], data["V3_1"],
-                            #adiabatic_index=4/3)
             Temp[Temp .<= 0.0] .= 1.e-4 # set negative temperatures to NaN for better plotting
             Temp[isnan.(Temp)] .= 1.e-4 # set NaN temperatures to a small value for better plotting
             

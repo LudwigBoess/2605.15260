@@ -1,3 +1,5 @@
+include(joinpath(@__DIR__, "config.jl"))
+
 @info "loading packages"
 using CairoMakie,MakieHelper
 using MakieExtra

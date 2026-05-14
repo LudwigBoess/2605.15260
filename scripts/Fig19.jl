@@ -1,3 +1,5 @@
+include(joinpath(@__DIR__, "config.jl"))
+
 using CairoMakie, MakieHelper
 using Printf
 using StatsBase

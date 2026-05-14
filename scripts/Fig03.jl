@@ -1,3 +1,5 @@
+include(joinpath(@__DIR__, "config.jl"))
+
 using CairoMakie, MakieHelper
 using Printf
 using DelimitedFiles
@@ -16,33 +18,6 @@ function divE_err(sim_path)
     return d["t"], sqrt.(d["DivE"].^2)
 end
 
-function write_divE_error(sim_paths, output_file)
-
-    mean_divE = Vector{Float64}(undef, length(sim_paths))
-    std_divE = Vector{Float64}(undef, length(sim_paths))
-    min_divE = Vector{Float64}(undef, length(sim_paths))
-    max_divE = Vector{Float64}(undef, length(sim_paths))
-
-    for i = 1:length(sim_paths)
-
-        println("Processing folder: ", sim_paths[i])
-
-        t, divE = divE_err(sim_paths[i])
-
-        divE = log10.(divE[abs.(divE) .> 0.0])
-
-        println("mean: ", mean(divE), " std: ", std(divE), " min: ", minimum(divE), " max: ", maximum(divE))
-        mean_divE[i] = mean(divE)
-        std_divE[i] = std(divE)
-        min_divE[i] = minimum(divE)
-        max_divE[i] = maximum(divE)
-
-    end
-
-    data = hcat(mean_divE, std_divE, min_divE, max_divE)
-    writedlm(output_file, data)
-
-end
 
 
 function Fig03(data_paths, sims, plot_name)
@@ -159,7 +134,18 @@ x_labels = [L"\mathcal{Z}", L"\mathcal{S}_1",
             L"\mathcal{S}_8", L"\mathcal{S}_9",
             L"\mathcal{S}_{10}", L"\mathcal{S}_{11}"]
 
-data_files = [data_path * "quiet_plasma/" * sim * "/quiet_plasma_divE_error3.txt" for sim in ["1D", "2D", "3D"]]
+sim_dims = ["1D", "2D", "3D"]
+data_files = [data_path * "charge_conservation/" * sim * "/charge_conservation_error.txt" for sim in sim_dims]
+
+for i = 1:length(sim_dims)
+    sim_paths = data_path * "charge_conservation/" * sim_dims[i] .*
+            ["zigzag", "esirkepov_1st", 
+            "esirkepov_2nd", "esirkepov_3rd", "esirkepov_4th", 
+            "esirkepov_5th", "esirkepov_6th", "esirkepov_7th", "esirkepov_8th",
+            "esirkepov_9th", "esirkepov_10th", "esirkepov_11th"
+            ] .* "/quiet_plasma"
+    write_divE_error(sim_paths, data_files[i])
+end
 
 plot_name = plot_path * "Fig03.pdf"
 Fig03(data_files, x_labels, plot_name)

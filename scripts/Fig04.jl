@@ -1,3 +1,5 @@
+include(joinpath(@__DIR__, "config.jl"))
+
 using CairoMakie, MakieHelper
 using EntityTools
 using LsqFit
@@ -8,19 +10,6 @@ using DelimitedFiles
 
 # Define a model function (e.g., exponential)
 model(x, p) = p[1] .* x .+ p[2]
-
-# """
-#     1D
-# """
-# function Ne(ppc)
-#     cells_per_skindepth = 10.0
-#     cell_volume = cells_per_skindepth^2
-#     return cell_volume * ppc/4
-# end
-
-# function Neff(dEdt)
-#     return 0.995/(2*abs(dEdt))
-# end
 
 
 """
@@ -35,25 +24,6 @@ end
 function Neff(dEdt)
     return 1.0/(4*abs(dEdt))
 end
-
-# const global d0 = 1.0
-# const global k_max = 10.0
-
-# """
-#     3D
-# """
-# function Ne(ppc)
-#     cells_per_skindepth = 10.0
-#     cell_volume = cells_per_skindepth^3
-#     return cell_volume * ppc/2
-# end
-
-# function Neff(dEdt)
-#     return 10.0/(4*pi*abs(dEdt) * 0.995) * log(k_max * 0.995 * d0)
-# end
-
-
-
 
 
 function write_E_data(sim_path)
@@ -120,15 +90,6 @@ function Fig04(sim_path, sims, plot_name)
         #ylims!(ax, (7.5, 7.9))
 
         for j = 1:length(sims)
-            # out_path = sim_path * sims[j] * "/_$(folders[i])"
-            # if !isdir(out_path)
-            #     continue
-            # end
-            # info = EntityData(out_path)
-            # p = read_particles(info, 3, ["U1", "U2", "U3"], 
-            #                     t=[0.0, Inf], reduction_function=sum)
-
-            # E = @. (sqrt(p["U1"]^2 + p["U2"]^2 + p["U3"]^2 + 1.0) - 1.0)
 
             out_path = sim_path * sims[j] * "/_$(folders[i])"
             data = readdlm(out_path * "/energy_data.txt")

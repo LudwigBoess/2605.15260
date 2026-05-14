@@ -1,3 +1,5 @@
+include(joinpath(@__DIR__, "config.jl"))
+
 using CairoMakie, MakieHelper
 using EntityTools
 using StatsBase
@@ -28,7 +30,6 @@ function Fig05(sim_paths, time, plot_name)
             L"0 \: \mathcal{F}", L"8 \: \mathcal{F}"]
 
     filters = ["", "_8filter"]
-    #filter_labels = ["0 filters", "8 filters"]
     linestyles = [:dash, :solid]
     lw = 3
 

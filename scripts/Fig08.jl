@@ -1,3 +1,5 @@
+include(joinpath(@__DIR__, "config.jl"))
+
 @info "loading packages"
 using CairoMakie, MakieHelper
 using ColorSchemes
@@ -10,14 +12,12 @@ using DelimitedFiles
 function Fig08(sim_paths, run_labels, t, plot_name)
 
     Nruns = length(sim_paths)
-    #f = Figure(size=(2100, 500))
     f = Figure(size=(1200, 500))
 
     x_l = (-12.8, 12.8)
     y_l = x_l
     c_map = :RdBu
     jz_lim = (-0.01, 0.01)
-    #jz_lim = (-0.002, 0.002)
     myscale = Symlog10(0.002, linscale=1.0)
 
 
@@ -86,22 +86,17 @@ end
 set_light_theme!(fontsize=28)
 
 runs = ["Zigzag", 
-        #L"\text{Esirkepov} \:\: \mathcal{S}_1",
         L"\text{Esirkepov} \:\: \mathcal{S}_2", 
         L"\text{Esirkepov} \:\: \mathcal{S}_3",
-        #L"\text{Esirkepov} \:\: \mathcal{S}_4", 
         L"\text{Esirkepov} \:\: \mathcal{S}_5",
-        #L"\text{Esirkepov} \:\: \mathcal{S}_6",
-        #L"\text{Esirkepov} \:\: \mathcal{S}_7",
-        #L"\text{Esirkepov} \:\: \mathcal{S}_8",
         L"\text{Esirkepov} \:\: \mathcal{S}_9"
         ]
 
-sim_paths = data_path * "oblique_modes_backup/" .*
+sim_paths = data_path * "oblique_modes/" .*
             ["zigzag", 
-            #"esirkepov_1st", 
-            "esirkepov_2nd", "esirkepov_3rd", #"esirkepov_4th", 
-            "esirkepov_5th", #"esirkepov_6th", "esirkepov_7th", "esirkepov_8th", 
+            "esirkepov_2nd", 
+            "esirkepov_3rd", 
+            "esirkepov_5th", 
             "esirkepov_9th",
             ] .* "/oblique_modes"
 

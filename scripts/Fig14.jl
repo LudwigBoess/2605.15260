@@ -1,3 +1,5 @@
+include(joinpath(@__DIR__, "config.jl"))
+
 using Printf
 using CairoMakie, MakieHelper
 using EntityTools

@@ -1,7 +1,8 @@
+include(joinpath(@__DIR__, "config.jl"))
+
 using CairoMakie, MakieHelper
 using Printf
 using DelimitedFiles
-
 
 
 function Fig09(sim_paths, sims, plot_name)
@@ -10,8 +11,6 @@ function Fig09(sim_paths, sims, plot_name)
 
     ax = Axis(f[1, 1], xlabel=L"t \quad \left[10^4 \: \omega_p^{-1}\right]", ylabel=L"\log_{10} \langle B_{yz} \rangle \:\: \left[ \sqrt{4\pi n_e m_e c^2} \right]",
                 aspect = 1.2,
-                #yscale = log10,
-                #yminorticks = IntervalsBetween(9)
                 )
     xlims!(ax, (0.0, 15.0))
     ylims!(ax, (-7, 2))
@@ -70,9 +69,6 @@ sims = ["Zigzag",
             L"\text{Esirkepov} \:\: \mathcal{S}_8", 
             L"\text{Esirkepov} \:\: \mathcal{S}_9",
             L"\text{Zigzag} + 8 \mathcal{F}",
-            # L"\mathcal{S}_2 \: + \: 8 \: \text{Filters}"
-            #L"\text{Esirkepov} \:\: \mathcal{S}_{10}",
-            #L"\text{Esirkepov} \:\: \mathcal{S}_{11}"
             ]
 
 
@@ -80,8 +76,8 @@ sim_paths = data_path * "bell/1D/" .*
             ["zigzag", "esirkepov_1st", 
             "esirkepov_2nd", "esirkepov_3rd", "esirkepov_4th", 
             "esirkepov_5th", "esirkepov_6th", "esirkepov_7th", "esirkepov_8th",
-            "esirkepov_9th", #"esirkepov_10th", "esirkepov_11th"
-            "zigzag_8filters", #"esirkepov_2nd_8filters"
+            "esirkepov_9th",
+            "zigzag_8filters",
             ] .* "/_bell"
 
 plot_name = plot_path * "Fig09.pdf"
