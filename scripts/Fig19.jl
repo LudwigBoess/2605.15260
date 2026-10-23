@@ -138,14 +138,14 @@ function Fig19(sim_path, time, plot_name)
         spectrum = d[:, 2]
         lines!(ax_d, bin_centers, spectrum, 
             linestyle=linestyles[j], linewidth=2.5, 
-            color=i_colors[i], colormap = :thermal, colorrange=(0,12))
+            color=i_colors[i], colormap = :batlow, colorrange=(0,12))
 
         d = readdlm(sim * "/spectrum_upstream_$(@sprintf("%08i", time)).csv")
         bin_centers = d[:, 1]
         spectrum = d[:, 2]
         lines!(ax_u, bin_centers, spectrum, 
             linestyle=linestyles[j], linewidth=2.5, 
-            color=i_colors[i], colormap = :thermal, colorrange=(0,12))
+            color=i_colors[i], colormap = :batlow, colorrange=(0,12))
 
     end
 
@@ -156,8 +156,8 @@ function Fig19(sim_path, time, plot_name)
             linestyle=:dot, linewidth=1.5, 
             color=:black, label=L"f_0")
     
-    lines!(ax_u, [0.0], [0.0], linewidth=2.5, color=i_colors[1], colormap = :thermal, colorrange=(0,12), label = "Zigzag")
-    lines!(ax_u, [0.0], [0.0], linewidth=2.5, color=i_colors[2], colormap = :thermal, colorrange=(0,12), label = L"\mathrm{Esirkepov} \:\: \mathcal{S}_3")
+    lines!(ax_u, [0.0], [0.0], linewidth=2.5, color=i_colors[1], colormap = :batlow, colorrange=(0,12), label = "Zigzag")
+    lines!(ax_u, [0.0], [0.0], linewidth=2.5, color=i_colors[2], colormap = :batlow, colorrange=(0,12), label = L"\mathrm{Esirkepov} \:\: \mathcal{S}_3")
     lines!(ax_u, [0.0], [0.0], color=:black, linestyle=:dash, linewidth=2.5, label="Yee")
     lines!(ax_u, [0.0], [0.0], color=:black, linestyle=:solid, linewidth=2.5, label="min3")
     axislegend(ax_u, framevisible=false)

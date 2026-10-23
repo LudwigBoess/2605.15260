@@ -7,10 +7,17 @@ using ColorSchemes
 using Printf
 using EntityTools
 using DelimitedFiles
+using LinearAlgebra
 @info "entitytools done"
 
+# delta/omega_pe
+function growth_rate(a, b, c)
+    alpha = 1.e-4 # beam to background ratio
+    gamma = 100.0 # beam Lorentz factor
+    return sqrt(3.0)/2^(4/3) * (alpha/gamma)^(1/3) / sqrt(2)
+end
 
-function Fig07(sim_paths, sims, plot_name)
+function Fig07(sim_paths, sims, plot_name, t_anchor, E2_anchor, alpha, gamma, L_box)
 
     f = Figure(size=(650, 600), figure_padding=(5, 30, 5, 15))
 
@@ -23,7 +30,7 @@ function Fig07(sim_paths, sims, plot_name)
     xlims!(ax, (0.0, 3000.0))
     ylims!(ax, (1.e-10, 1.e-2))
     subfolder = ["", "_8filters"]
-    linestyles = [:dash, :solid]
+    linestyles = [:dot, :solid]
 
     for i = 1:length(sim_paths), j = 1:2
 
@@ -37,17 +44,23 @@ function Fig07(sim_paths, sims, plot_name)
 
 
         lines!(ax, t, E2, 
-            color=i, colormap = :thermal, colorrange=(0,length(sims)-1.5), 
+            color=i, colormap = :batlow, colorrange=(0,length(sims)-1.5), 
             linewidth=4, linestyle=linestyles[j])
         if j == 2
             lines!(ax, [0.0], [0.0], 
-                color=i, colormap = :thermal, colorrange=(0,length(sims)-1.5), 
+                color=i, colormap = :batlow, colorrange=(0,length(sims)-1.5), 
                 linewidth=4, label=sims[i])
         end
 
         
 
     end
+
+    # analytic linear growth: field energy grows as exp(2 δ t)
+    t_an = LinRange(1200.0, 1700.0, 2)
+    la = lines!(ax, t_an, E2_anchor .* exp.(2growth_rate(alpha, gamma, L_box) .* (t_an .- t_anchor)),
+                color=:black, linestyle=:dash,
+                linewidth=2)
 
     l0 = lines!(ax, [0.0], [0.0],
                 color=:black, linestyle=linestyles[1],
@@ -57,7 +70,7 @@ function Fig07(sim_paths, sims, plot_name)
                 linewidth=2)
 
     axislegend(ax; position = :lt, nbanks = 2, framevisible = false)
-    axislegend(ax, [l0, l8], [L" 0 \: \mathcal{F}", L" 8 \: \mathcal{F}"]; position = :rb, framevisible = false)
+    axislegend(ax, [l0, l8, la], [L" 0 \: \mathcal{F}", L" 8 \: \mathcal{F}", L"\Gamma_\mathrm{max, obl.}"]; position = :rb, framevisible = false)
     resize_to_layout!(f)
     save(plot_name, f)
 end
@@ -73,8 +86,8 @@ sims = ["Zigzag",
             L"\text{Esirkepov} \:\: \mathcal{S}_{2} + 8 \mathcal{F}"
             ]
 
-
-sim_paths = data_path * "oblique_modes_backup/" .*
+sim_path = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/entity_convergence/"
+sim_paths = sim_path * "oblique_modes_backup/" .*
             ["zigzag", 
             "esirkepov_2nd", "esirkepov_3rd", 
             "esirkepov_5th", 
@@ -82,5 +95,10 @@ sim_paths = data_path * "oblique_modes_backup/" .*
             ] .* "/oblique_modes"
 
 plot_name = plot_path * "Fig07.pdf"
-Fig07(sim_paths, sims, plot_name)
+t_anchor  = 1200.0   # [ω_p^-1] anchor of the analytic growth line
+E2_anchor = 3.e-9    # [n_b m_e c^2] E_y^2/8π at t_anchor
+alpha     = 1.e-4                # beam to background density ratio (pair totals)
+gamma     = sqrt(1 + 100.0^2)    # beam Lorentz factor, drift 4-velocity u = 100
+L_box     = 25.6                 # [c/ω_p] box length along the beam
+Fig07(sim_paths, sims, plot_name, t_anchor, E2_anchor, alpha, gamma, L_box)
 

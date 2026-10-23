@@ -1,4 +1,4 @@
-include(joinpath(@__DIR__, "config.jl"))
+#include(joinpath(@__DIR__, "config.jl"))
 
 using DelimitedFiles
 using Printf
@@ -143,18 +143,18 @@ function Fig20(data_path, plot_name)
     save(plot_name, f)
 end
 
-set_light_theme!(fontsize=20)
+set_dark_theme!(fontsize=20)
 
 perf_in_path  = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/entity_convergence/performance"
 perf_out_path = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/2600.0000/simulations/performance"
 plot_path = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/2600.0000/Plots/"
 
-for dim in ("1D", "2D", "3D")
-    parse_timing(joinpath(perf_in_path,  dim),
-                 joinpath(perf_out_path, dim * ".txt"), skip_steps=2)
-end
+#for dim in ("1D", "2D", "3D")
+#    parse_timing(joinpath(perf_in_path,  dim),
+#                 joinpath(perf_out_path, dim * ".txt"), skip_steps=2)
+#end
 
 data_path = perf_out_path * "/"
-plot_name = plot_path * "Fig20.pdf"
+plot_name = plot_path * "Fig20.png"
 
 Fig20(data_path, plot_name)

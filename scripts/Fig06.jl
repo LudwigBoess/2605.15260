@@ -145,7 +145,9 @@ end
 
 set_light_theme!()
 
-sim_paths = data_path * "numerical_heating/2D/" .*
+_data = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/entity_convergence/"
+
+sim_paths = _data * "numerical_heating/2D/" .*
             ["zigzag", "zigzag_8filter", 
              "esirkepov_2nd", "esirkepov_2nd_8filter",
              "esirkepov_3rd", 

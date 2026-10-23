@@ -403,7 +403,7 @@ function Fig01(plot_name)
     # particle data
     for S in shapes
         lines!(ax1, x_range, S.(x_range), linewidth = 3.5, color = :white, alpha=0.3)
-        lines!(ax1, x_range, S.(x_range), label=L"\mathcal{S}_{%$i}", color = i, colormap = :thermal, colorrange=(0,length(shapes)+1), linewidth=2.5)
+        lines!(ax1, x_range, S.(x_range), label=L"\mathcal{S}_{%$i}", color = i, colormap = :batlow, colorrange=(0,length(shapes)+1), linewidth=2.5)
         i += 1
     end
     axislegend(ax1, position = :lt, framevisible=false)

@@ -21,18 +21,18 @@
 [algorithms]
   current_filters = 0
 
-  [algorithms.timestep]
-    CFL = 0.97
+    [algorithms.timestep]
+    CFL = 0.7071
 
   [algorithms.fieldsolver]
-    delta_x = -0.125
-    delta_y = -0.125
-    beta_xy = 0.11
-    beta_yx = 0.11
-
+    delta_x = -0.0649472
+    delta_y = -0.0649472
+    beta_xy = -0.0649472
+    beta_yx = -0.0649472
 
 [particles]
   ppc0 = 8.0
+  spatial_sorting_interval=8
 
   [[particles.species]]
     label    = "e-_p"

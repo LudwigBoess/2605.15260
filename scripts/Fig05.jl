@@ -58,7 +58,7 @@ function Fig05(sim_paths, time, plot_name)
 
                 rel_err = log10.(abs.(data["T22"] .- data["T22"][1]) ./ data["T22"][1])
                 println(maximum(rel_err))
-                lines!(ax1, 1.e-3 .* data["t"], rel_err, color = k, colormap=:thermal, colorrange=(0,length(cells)+1), linewidth=lw,
+                lines!(ax1, 1.e-3 .* data["t"], rel_err, color = k, colormap=:batlow, colorrange=(0,length(cells)+1), linewidth=lw,
                         linestyle=linestyles[j], label = labels[k])
 
                 data = nothing 
@@ -69,7 +69,7 @@ function Fig05(sim_paths, time, plot_name)
         if i > 1
             hideydecorations!(ax1, ticks = false, minorticks=false)        
             if i == length(sim_paths)
-                lins = vcat([lines!(ax1, [0.0], [0.0], color = k, colormap=:thermal, colorrange=(0,length(cells)+1), linewidth=lw) 
+                lins = vcat([lines!(ax1, [0.0], [0.0], color = k, colormap=:batlow, colorrange=(0,length(cells)+1), linewidth=lw) 
                                 for k = 1:length(cells)],
                             [lines!(ax1, [0.0], [0.0], color = :black, linewidth=2.0, linestyle=linestyles[j]) 
                                 for j = 1:2])
@@ -86,7 +86,8 @@ end
 
 set_light_theme!(fontsize=22)
 
-sim_paths = data_path * "numerical_heating/2D/" .*
+sim_path = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/entity_convergence/"
+sim_paths = sim_path * "numerical_heating/2D/" .*
             ["zigzag", 
             "esirkepov_2nd", 
             "esirkepov_3rd", 

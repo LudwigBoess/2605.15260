@@ -1,4 +1,4 @@
-include(joinpath(@__DIR__, "config.jl"))
+#include(joinpath(@__DIR__, "config.jl"))
 
 using CairoMakie, MakieHelper
 using Printf
@@ -122,10 +122,12 @@ function Fig18(sim_path, deposits, t, plot_name)
 
 end
 
-set_light_theme!(fontsize=20)
+set_dark_theme!(fontsize=20)
 
-sim_path = data_path * "shock/"
+#sim_path = data_path * "shock/"
+sim_path = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/entity_convergence/shock/"
 deposits = ["zigzag", "esirkepov_3rd"]
 t = 5000.0
-plot_name = plot_path * "Fig18.pdf"
+plot_path = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/2600.0000/Plots/"
+plot_name = plot_path * "Fig18.png"
 Fig18(sim_path, deposits, t, plot_name)

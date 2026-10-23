@@ -65,7 +65,7 @@ function Fig13(sim_paths, run_labels, t, factors, plot_name)
         k = d[:, 1]
         Pk = d[:, 2] ./ d[1,2]
 
-        lines!(ax1, k, Pk, color=i, colormap = :thermal, colorrange=(0,length(sim_paths)+1), 
+        lines!(ax1, k, Pk, color=i, colormap = :batlow, colorrange=(0,length(sim_paths)+1), 
             linewidth=2.5, label=run_labels[i])
     end
 
@@ -102,7 +102,7 @@ function Fig13(sim_paths, run_labels, t, factors, plot_name)
         k = d[:, 1]
         Pk = d[:, 2] ./ d[1,2]
 
-        lines!(ax2, k, Pk, color=i, colormap = :thermal, colorrange=(0,7), 
+        lines!(ax2, k, Pk, color=i, colormap = :batlow, colorrange=(0,7), 
             linewidth=2.5, label=subrun_labels[i])
     end
     add_analytic!(ax2)
@@ -124,7 +124,7 @@ function Fig13(sim_paths, run_labels, t, factors, plot_name)
         k = d[:, 1]
         Pk = d[:, 2] ./ d[1,2]
 
-        lines!(ax3, k, Pk, color=i, colormap = :thermal, colorrange=(0,7), 
+        lines!(ax3, k, Pk, color=i, colormap = :batlow, colorrange=(0,7), 
             linewidth=2.5, label=subrun_labels[i])
     end
     add_analytic!(ax3)

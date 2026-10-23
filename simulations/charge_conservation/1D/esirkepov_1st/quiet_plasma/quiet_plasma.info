@@ -1,14 +1,14 @@
 ﻿
 
 ╔══════════════════════════════════════════════════════════╗
-║ Entity v1.4.0                                            ║
+║ Entity v1.5.0                                            ║
 ╚══════════════════════════════════════════════════════════╝
 
     Backend
-    - Build hash: 2d9a5ae08d4900dfa9112575a2e2d395d4d8cc00
-    - CXX: Clang/LLVM 21.0.0git (icx 2025.2.0.20250605) [C++20]
+    - Build hash: 8a81f77642743e3d6b050eaa011cde641cc11b53
+    - CXX: Clang/LLVM 21.1.1 (icx 2025.3.2.20260112) [C++20]
     - MPI: OFF
-    - Kokkos: 5.0.0
+    - Kokkos: 5.0.1
     - ADIOS2: 2.11.0
     - Precision: double
     - Debug: OFF
@@ -22,11 +22,15 @@
     - DEVICE_ENABLED: ON
     - MPI_ENABLED: OFF
     - GPU_AWARE_MPI: OFF
+    - TEAM_POLICY: ON
+    - VENDOR_SORT: ON
 
     Configuration
     - Name: quiet_plasma
-    - Problem generator: streaming
     - Engine: srpic
+    - Tile size: 10
+    - Halo drift: 1
+    - Team size: AUTO (Kokkos)
     - Metric: minkowski
     - Deposit: esirkepov
     - Interpolation order: 1
@@ -42,7 +46,7 @@
       - Particles: [{periodic, periodic}]
     - Domain decomposition: [1] [1 total]
 
-    Fiducial parameters
+    Nominal parameters
     - Particles per cell [ppc0]: 16.0
     - Larmor radius [larmor0]: 1.000e+00 [25.600 dx0]
     - Larmor frequency [omegaB0 * dt]: 1.953e-02
@@ -50,14 +54,36 @@
     - Plasma frequency [omp0 * dt]: 1.953e-02
     - Magnetization [sigma0]: 1.000e+00
 
+    Problem generator
+      - Name: streaming
+      - Methods defined:
+        - InitFlds: ON
+        - InitPrtls: ON
+        - CustomPostStep: OFF
+        - ExternalFields: OFF
+        - ext_current: OFF
+        - AtmFields: OFF
+        - MatchFields: OFF
+        - MatchFieldsInX1: OFF
+        - MatchFieldsInX2: OFF
+        - MatchFieldsInX3: OFF
+        - FixFieldsConst: OFF
+        - EmissionPolicy: OFF
+        - CustomFieldOutput: OFF
+        - CustomStatOutput: OFF
+
     Particles
     - Species #1:
       - Label: e-
       - Mass: 1.0
       - Charge: -1.0
       - Max #: 100000000 [per domain]
+      - Clearing interval: 100
+      - Spatial sorting interval: 8
       - Pusher: boris
       - Radiative drag: none
+      - Emission policy: none
+      - Tracking: OFF
       - # of real-value payloads: 0
       - # of integer-value payloads: 0
     - Species #2:
@@ -65,8 +91,12 @@
       - Mass: 1.0
       - Charge: 1.0
       - Max #: 100000000 [per domain]
+      - Clearing interval: 100
+      - Spatial sorting interval: 8
       - Pusher: boris
       - Radiative drag: none
+      - Emission policy: none
+      - Tracking: OFF
       - # of real-value payloads: 0
       - # of integer-value payloads: 0
 

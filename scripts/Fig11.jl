@@ -80,15 +80,15 @@ function Fig11(sim_paths, sims, plot_name)
         end
 
         lines!(ax1, t, Etot, 
-            color=i, colormap = :thermal, colorrange=(0,6), 
+            color=i, colormap = :batlow, colorrange=(0,6), 
             linewidth=2.5, label=sims[i])
 
         lines!(ax_zoom_l, t, Etot, 
-            color=i, colormap = :thermal, colorrange=(0,6), 
+            color=i, colormap = :batlow, colorrange=(0,6), 
             linewidth=2.5, label=sims[i])
 
         lines!(ax_zoom_r, t, Etot, 
-            color=i, colormap = :thermal, colorrange=(0,6), 
+            color=i, colormap = :batlow, colorrange=(0,6), 
             linewidth=2.5, label=sims[i])
 
         if i == 1
@@ -102,21 +102,21 @@ function Fig11(sim_paths, sims, plot_name)
         end
 
         lines!(ax1, t, B, 
-            color=i, colormap = :thermal, colorrange=(0,6), 
+            color=i, colormap = :batlow, colorrange=(0,6), 
             linewidth=2.5, linestyle=:dash)
 
         lines!(ax1, t, E, 
-            color=i, colormap = :thermal, colorrange=(0,6), 
+            color=i, colormap = :batlow, colorrange=(0,6), 
             linewidth=2.5, linestyle=:dot)
 
         lines!(ax1, t, T, 
-            color=i, colormap = :thermal, colorrange=(0,6), 
+            color=i, colormap = :batlow, colorrange=(0,6), 
             linewidth=2.5, linestyle=:dashdot)
 
 
         E_err = log10.(abs.(Etot .- Etot[1]) ./ Etot[1])
         lines!(ax2, t, E_err, 
-            color=i, colormap = :thermal, colorrange=(0,6), 
+            color=i, colormap = :batlow, colorrange=(0,6), 
             linewidth=2.5)
 
         println("Max energy error: ", maximum(E_err))
@@ -145,7 +145,7 @@ function Fig11(sim_paths, sims, plot_name)
         Etot = 0.5 .* (B .+ E) .+ T
         E_err = log10.(abs.(Etot .- Etot[1]) ./ Etot[1])
         lines!(ax2, t[p], E_err[p], 
-            color=1, colormap = :thermal, colorrange=(0,6), 
+            color=1, colormap = :batlow, colorrange=(0,6), 
             linewidth=2.5, linestyle=linestyles[i-4])
     end
 
