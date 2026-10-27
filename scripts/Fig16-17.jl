@@ -73,9 +73,8 @@ set_light_theme!(fontsize=25)
 sim_path = data_path * "drifting_plasma/2D/"
 deposits = ["fieldstencil_zigzag", "fieldstencil_e3"]
 t = 10000.0
-data_path = sim_path
 plot_name = plot_path * "Fig16.pdf"
-#Fig_16(sim_path, deposits, t, plot_name)
+Fig_16(sim_path, deposits, t, plot_name)
 
 
 function Fig_17(sim_path, deposits, t, plot_name)
@@ -149,6 +148,5 @@ set_light_theme!(fontsize=25)
 sim_path = data_path * "drifting_plasma/3D/"
 deposits = ["zigzag", "esirkepov_3rd"]
 t = 10000.0
-data_path = sim_path
 plot_name = plot_path * "Fig17.pdf"
 Fig_17(sim_path, deposits, t, plot_name)

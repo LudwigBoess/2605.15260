@@ -15,14 +15,44 @@ model(x, p) = p[1] .* x .+ p[2]
 """
     2D
 """
-function Ne(ppc)
+function Ne2D(ppc)
     cells_per_skindepth = 10.0
     cell_volume = cells_per_skindepth^2
     return cell_volume * ppc/2
 end
 
-function Neff(dEdt)
+"""
+    3D
+
+The 3D parameter files set ppc0 to half the folder label, so the electron density
+per cell is ppc/4 rather than ppc/2.
+"""
+function Ne3D(ppc)
+    cells_per_skindepth = 10.0
+    cell_volume = cells_per_skindepth^3
+    return cell_volume * ppc/4
+end
+
+"""
+    Kato 2013, Eq. 34, 2D case
+"""
+function Neff2D(dEdt)
     return 1.0/(4*abs(dEdt))
+end
+
+"""
+    Kato 2013, Eq. 34, 3D case
+"""
+function Neff3D(dEdt, v0; cells_per_skindepth=10.0)
+    coulomb_log = log(pi * v0 * cells_per_skindepth)
+    return coulomb_log/(4pi * v0 * abs(dEdt))
+end
+
+"""
+    Speed in units of c of a particle with kinetic energy `E` in units of m_e c^2.
+"""
+function beta_from_E(E)
+    return sqrt(1.0 - 1.0/(1.0 + E)^2)
 end
 
 
@@ -57,32 +87,35 @@ end
 
 
 sim_path = data_path * "stopping_power/2D/"
-folders = ["zigzag", "esirkepov_2nd", "esirkepov_3rd", 
-            "esirkepov_5th", 
-            "esirkepov_9th"
-            ]
+folders = ["zigzag", "esirkepov_2nd", "esirkepov_3rd", "esirkepov_5th", "esirkepov_9th"]
+#run_E_data(sim_path, folders)
+
+sim_path = data_path * "stopping_power/3D/"
+folders = ["zigzag", "esirkepov_2nd", "esirkepov_3rd"]
 #run_E_data(sim_path, folders)
 
 
-function Fig04(sim_path, sims, plot_name)
+function Fig04(sim_path, sims, titles, dim, plot_name)
 
     f = Figure(size=(1550, 400))
 
-    titles = [L"\text{Zigzag}", 
-            L"\text{Esirkepov} \:\: \mathcal{S}_2", 
-            L"\text{Esirkepov} \:\: \mathcal{S}_3", 
-            L"\text{Esirkepov} \:\: \mathcal{S}_5",
-            L"\text{Esirkepov} \:\: \mathcal{S}_9"]
-
     folders = ["8ppc", "16ppc", "32ppc", "64ppc"]
+    panel_titles = dim == 2 ? ["8ppc", "16ppc", "32ppc", "64ppc"] :
+                              ["4ppc", "8ppc", "16ppc", "32ppc"]
     ppc = [8, 16, 32, 64]
+
+    # setup electrons per skin depth volume, and its counterpart inferred from the
+    # measured loss rate; the 3D rate carries a velocity and a Coulomb logarithm
+    Ne = dim == 2 ? Ne2D : Ne3D
+    Neff = dim == 2 ? (dEdt, E0) -> Neff2D(dEdt) :
+                      (dEdt, E0) -> Neff3D(dEdt, beta_from_E(E0))
 
     for i = 1:length(folders)
 
         println("Processing folder: ", folders[i])
 
         ax = Axis(f[1, i], xlabel=L"t \quad \left[ \omega_p^{-1} \right]", ylabel=L"\varepsilon \:\: [m_e c^2]",
-                    title=L"\text{%$(folders[i])} \rightarrow N_e^{(2)} = %$(round(Ne(ppc[i]); digits=0))",
+                    title=L"\text{%$(panel_titles[i])} \rightarrow N_e^{(%$dim)} = %$(round(Ne(ppc[i]); digits=0))",
                     aspect = 1)
         xlims!(ax, (0.0, 4.e2))
         #ylims!(ax, (8.2, 9.1))
@@ -106,14 +139,14 @@ function Fig04(sim_path, sims, plot_name)
                 E_fit[k] = model(t[k], fit.param)
             end
 
-            band!(ax, t, E .- E_std, E .+ E_std, alpha = 0.1, color=j, colormap = :thermal, colorrange=(0,length(sims)+1))
+            band!(ax, t, E .- E_std, E .+ E_std, alpha = 0.1, color=j, colormap = :batlow, colorrange=(0,length(sims)+1))
 
             lines!(ax, t, E,
-                color=j, colormap = :thermal, colorrange=(0,length(sims)+1), 
-                linewidth=2.5, label=L"N_\mathrm{e,eff} = %$(round( Neff(fit.param[1]); digits=1))")
+                color=j, colormap = :batlow, colorrange=(0,length(sims)+1), 
+                linewidth=2.5, label=L"N_\mathrm{e,eff} = %$(round( Neff(fit.param[1], E[1]); digits=1))")
         
             lines!(ax, t, E_fit, 
-                color=j, colormap = :thermal, colorrange=(0,length(sims)+1), 
+                color=j, colormap = :batlow, colorrange=(0,length(sims)+1), 
                 linestyle=:dash, alpha = 0.7,
                 linewidth=3.0)
             
@@ -128,7 +161,7 @@ function Fig04(sim_path, sims, plot_name)
 
         if i == length(folders)
             
-            lins = [lines!(ax, [0.0], [0.0], color=j, colormap = :thermal, colorrange=(0,length(sims)+1), 
+            lins = [lines!(ax, [0.0], [0.0], color=j, colormap = :batlow, colorrange=(0,length(sims)+1), 
                     linewidth=2.5, label=titles[j]) for j = 1:length(sims)]
             #f[1, i+1] = Legend(f, ax, framevisible = false)
             Legend(f[1, i+1], lins, titles, framevisible = false)
@@ -144,6 +177,23 @@ set_light_theme!(fontsize=20)
 
 sim_path = data_path * "stopping_power/2D/"
 folders = ["zigzag", "esirkepov_2nd", "esirkepov_3rd", "esirkepov_5th", "esirkepov_9th"]
+titles = [L"\text{Zigzag}",
+          L"\text{Esirkepov} \:\: \mathcal{S}_2",
+          L"\text{Esirkepov} \:\: \mathcal{S}_3",
+          L"\text{Esirkepov} \:\: \mathcal{S}_5",
+          L"\text{Esirkepov} \:\: \mathcal{S}_9"]
+dim = 2
 plot_name = plot_path * "Fig04.pdf"
-Fig04(sim_path, folders, plot_name)
+Fig04(sim_path, folders, titles, dim, plot_name)
+
+
+#sim_path = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/2600.0000/simulations/stopping_power/3D/"
+#folders = ["zigzag", "esirkepov_2nd", "esirkepov_3rd"]
+#titles = [L"\text{Zigzag}",
+#          L"\text{Esirkepov} \:\: \mathcal{S}_2",
+#          L"\text{Esirkepov} \:\: \mathcal{S}_3"]
+#dim = 3
+#plot_path = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/2600.0000/Plots/"
+#plot_name = plot_path * "Fig04.pdf"
+#Fig04(sim_path, folders, titles, dim, plot_name)
 

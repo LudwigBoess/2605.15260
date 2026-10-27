@@ -31,7 +31,7 @@ function Fig12(sim_paths, runs, run_colors, plot_name)
 
         # zigzag runs
     band!(ax1, [0.5, 6.5], -1, 1, 
-        color=1, colormap=:thermal, colorrange=(0,13), 
+        color=1, colormap=:batlow, colorrange=(0,13), 
         alpha=0.3)
 
     # 4
@@ -40,7 +40,7 @@ function Fig12(sim_paths, runs, run_colors, plot_name)
                     alpha=0.75, strokewidth=0)
 
     band!(ax1, [6.5, 12.5], -1, 1, 
-        color=3, colormap=:thermal, colorrange=(0,13), 
+        color=3, colormap=:batlow, colorrange=(0,13), 
         alpha=0.3)
 
     textlabel!(ax1, Point2f(9, 3e-2), text = L"\mathcal{S}_2",
@@ -48,21 +48,21 @@ function Fig12(sim_paths, runs, run_colors, plot_name)
                     alpha=0.75, strokewidth=0)
 
     band!(ax1, [12.5, 13.5], -1, 1, 
-        color=4, colormap=:thermal, colorrange=(0,13), 
+        color=4, colormap=:batlow, colorrange=(0,13), 
         alpha=0.3)
     textlabel!(ax1, Point2f(13, 3e-2), text = L"\mathcal{S}_3",
                     offset = (0, 0), text_color = :black, 
                     alpha=0.75, strokewidth=0)
 
     band!(ax1, [13.5, 14.5], -1, 1, 
-        color=6, colormap=:thermal, colorrange=(0,13), 
+        color=6, colormap=:batlow, colorrange=(0,13), 
         alpha=0.3)
     textlabel!(ax1, Point2f(14, 3e-2), text = L"\mathcal{S}_5",
                     offset = (0, 0), text_color = :black, 
                     alpha=0.75, strokewidth=0)
 
     band!(ax1, [14.5, 15.5], -1, 1, 
-        color=10, colormap=:thermal, colorrange=(0,13), 
+        color=10, colormap=:batlow, colorrange=(0,13), 
         alpha=0.3)
     textlabel!(ax1, Point2f(15, 3e-2), text = L"\mathcal{S}_9",
                     offset = (0, 0), text_color = :black, 
@@ -92,7 +92,7 @@ function Fig12(sim_paths, runs, run_colors, plot_name)
 
         scatter!(ax1, i, E_err, 
             markersize = 30, strokecolor=:white, strokewidth = 1.0,
-            color=run_colors[i], colormap = :thermal, colorrange=(0,13))
+            color=run_colors[i], colormap = :batlow, colorrange=(0,13))
 
         scatter!(ax1, i, abs.(E_err),
             markersize = 30, 
@@ -104,6 +104,7 @@ function Fig12(sim_paths, runs, run_colors, plot_name)
     save(plot_name, f)
 end
 
+set_light_theme!(fontsize=25)
 
 runs = [L"\mathcal{Z}", 
         L"1 \mathcal{F}",

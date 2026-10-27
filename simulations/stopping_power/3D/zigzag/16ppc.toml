@@ -25,18 +25,19 @@
     CFL = 0.866
 
   [algorithms.fieldsolver]
-    delta_x = -0.0273
-    delta_y = -0.0273
-    delta_z = -0.0273
-    beta_xy = -0.0273
-    beta_yx = -0.0273
-    beta_xz = -0.0273
-    beta_zx = -0.0273
-    beta_yz = -0.0273
-    beta_zy = -0.0273
+    delta_x = -0.1704
+    delta_y = -0.1704
+    delta_z = -0.1704
+    beta_xy = 0.05801
+    beta_yx = 0.05801
+    beta_xz = 0.05801
+    beta_zx = 0.05801
+    beta_yz = 0.05801
+    beta_zy = 0.05801
 
 [particles]
   ppc0 = 8.0
+  spatial_sorting_interval=8
 
   [[particles.species]]
     label    = "e-_p"

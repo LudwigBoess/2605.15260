@@ -1,0 +1,16 @@
+*.log
+*/fields/*
+*.ckpt
+*.o*
+*.e*
+entity.xc
+*.bp
+*.json
+*_backup.txt
+build_shape_orders.sh
+copy_executables.jl
+copy_files.sh
+job.pbs
+fields
+particles
+zigzag

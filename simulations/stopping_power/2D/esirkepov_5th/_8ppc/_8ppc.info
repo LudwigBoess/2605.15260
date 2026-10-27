@@ -1,14 +1,13 @@
 ﻿
 
 ╔══════════════════════════════════════════════════════════╗
-║ Entity v1.4.0                                            ║
+║ Entity v1.5.0                                            ║
 ╚══════════════════════════════════════════════════════════╝
 
     Backend
-    - Build hash: ec36dd278d9879fe598eb44f903c82eeda8530ed
+    - Build hash: 1aa6ee9e9c9d74c3fe9602d1ce10de44126d40d6
     - CXX: Clang/LLVM 21.1.1 (icx 2025.3.2.20260112) [C++20]
-    - MPI: 4.1
-    - GPU-aware MPI: OFF
+    - MPI: OFF
     - Kokkos: 5.0.1
     - ADIOS2: 2.11.0
     - Precision: single
@@ -21,17 +20,22 @@
     - CUDA_ENABLED: OFF
     - HIP_ENABLED: OFF
     - DEVICE_ENABLED: ON
-    - MPI_ENABLED: ON
+    - MPI_ENABLED: OFF
     - GPU_AWARE_MPI: OFF
+    - TEAM_POLICY: ON
+    - VENDOR_SORT: ON
 
     Configuration
     - Name: _8ppc
     - Engine: srpic
+    - Tile size: 10
+    - Halo drift: 1
+    - Team size: AUTO (Kokkos)
     - Metric: minkowski
     - Deposit: esirkepov
     - Interpolation order: 5
-    - Timestep [dt]: 6.859e-02
-    - Runtime: 4.000e+02 [5831 steps]
+    - Timestep [dt]: 5.000e-02
+    - Runtime: 4.000e+02 [8000 steps]
 
     Global domain
     - Resolution: [1024, 1024]
@@ -45,9 +49,9 @@
     Nominal parameters
     - Particles per cell [ppc0]: 8.0
     - Larmor radius [larmor0]: 1.000e+00 [14.142 dx0]
-    - Larmor frequency [omegaB0 * dt]: 6.859e-02
+    - Larmor frequency [omegaB0 * dt]: 5.000e-02
     - Skin depth [skindepth0]: 1.000e+00 [14.142 dx0]
-    - Plasma frequency [omp0 * dt]: 6.859e-02
+    - Plasma frequency [omp0 * dt]: 5.000e-02
     - Magnetization [sigma0]: 1.000e+00
 
     Problem generator
@@ -75,7 +79,7 @@
       - Charge: -1.0
       - Max #: 70000000 [per domain]
       - Clearing interval: 100
-      - Spatial sorting interval: OFF
+      - Spatial sorting interval: 8
       - Pusher: boris
       - Radiative drag: none
       - Emission policy: none
@@ -88,7 +92,7 @@
       - Charge: 1.0
       - Max #: 70000000 [per domain]
       - Clearing interval: 100
-      - Spatial sorting interval: OFF
+      - Spatial sorting interval: 8
       - Pusher: boris
       - Radiative drag: none
       - Emission policy: none
@@ -101,7 +105,7 @@
       - Charge: -1.0
       - Max #: 1000 [per domain]
       - Clearing interval: 100
-      - Spatial sorting interval: OFF
+      - Spatial sorting interval: 8
       - Pusher: boris
       - Radiative drag: none
       - Emission policy: none
@@ -114,7 +118,7 @@
       - Charge: 1.0
       - Max #: 1000 [per domain]
       - Clearing interval: 100
-      - Spatial sorting interval: OFF
+      - Spatial sorting interval: 8
       - Pusher: boris
       - Radiative drag: none
       - Emission policy: none
@@ -124,7 +128,6 @@
 
     Domains
     - Domain #0:
-      - Rank: 0
       - Resolution: [1024, 1024]
       - Extent: [{-51.2, 51.2}, {-51.2, 51.2}]
       - Boundary conditions:

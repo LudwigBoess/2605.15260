@@ -1,0 +1,1 @@
+/lus/flare/projects/CRsInCosmoSims/PIC/Paper/entity_convergence/decaying_turb/2D/esirkepov_3rd/turbulence/powerspec.txt

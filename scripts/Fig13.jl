@@ -15,13 +15,14 @@ function write_powerspec(sim_paths, t, cells_per_de)
 
     for i = 1:length(sim_paths)
         @info "reading data 2D"
-        info = EntityData(sim_paths[i])
+        out_path = sim_paths[i] * "/turbulence"
+        info = EntityData(out_path)
         # power spec
         d = read_field(info, ["B1", "B2", "B3"], verbose=true; t)
 
         k, Pk = power_spectrum(d["B1"], d["B2"], d["B3"], cells_per_skindepth = cells_per_de[i])
 
-        writedlm(sim_paths[i] * "/powerspec.txt", [k Pk])
+        writedlm(out_path * "/powerspec.txt", [k Pk])
     end
 end
 
@@ -65,7 +66,7 @@ function Fig13(sim_paths, run_labels, t, factors, plot_name)
         k = d[:, 1]
         Pk = d[:, 2] ./ d[1,2]
 
-        lines!(ax1, k, Pk, color=i, colormap = :thermal, colorrange=(0,length(sim_paths)+1), 
+        lines!(ax1, k, Pk, color=i, colormap = :batlow, colorrange=(0,length(sim_paths)+1), 
             linewidth=2.5, label=run_labels[i])
     end
 
@@ -102,7 +103,7 @@ function Fig13(sim_paths, run_labels, t, factors, plot_name)
         k = d[:, 1]
         Pk = d[:, 2] ./ d[1,2]
 
-        lines!(ax2, k, Pk, color=i, colormap = :thermal, colorrange=(0,7), 
+        lines!(ax2, k, Pk, color=i, colormap = :batlow, colorrange=(0,7), 
             linewidth=2.5, label=subrun_labels[i])
     end
     add_analytic!(ax2)
@@ -124,7 +125,7 @@ function Fig13(sim_paths, run_labels, t, factors, plot_name)
         k = d[:, 1]
         Pk = d[:, 2] ./ d[1,2]
 
-        lines!(ax3, k, Pk, color=i, colormap = :thermal, colorrange=(0,7), 
+        lines!(ax3, k, Pk, color=i, colormap = :batlow, colorrange=(0,7), 
             linewidth=2.5, label=subrun_labels[i])
     end
     add_analytic!(ax3)
@@ -149,10 +150,17 @@ runs = [L"\mathcal{Z}",
 sim_paths = data_path * "decaying_turb/2D/" .*
             ["zigzag", "esirkepov_2nd", "esirkepov_3rd", "esirkepov_5th", "esirkepov_9th"]
 
-factors = 4 .* [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 4.0, 8.0]
 t = 1092.0
-write_powerspec(sim_paths, t, factors)
+
+# runs whose power spectra are read by Fig13, and their resolution in cells per skin depth
+spec_runs = ["zigzag", "esirkepov_2nd", "esirkepov_3rd", "esirkepov_5th", "esirkepov_9th",
+             "zigzag_1filters", "zigzag_2filters", "zigzag_4filters", "zigzag_8filters", "zigzag_16filters",
+             "esirkepov_2nd_1filters", "esirkepov_2nd_2filters", "esirkepov_2nd_4filters",
+             "esirkepov_2nd_8filters", "esirkepov_2nd_16filters",
+             "zigzag_2x", "zigzag_4x", "zigzag_8x"]
+cells_per_de = [fill(4.0, 15); 8.0; 16.0; 32.0]
+#write_powerspec(data_path * "decaying_turb/2D/" .* spec_runs, t, cells_per_de)
 
 plot_name = plot_path * "Fig13.pdf"
 
-Fig13(sim_paths, runs, t, factors, plot_name)
+Fig13(sim_paths, runs, t, cells_per_de, plot_name)

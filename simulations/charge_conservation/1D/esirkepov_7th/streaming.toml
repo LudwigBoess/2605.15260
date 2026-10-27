@@ -26,6 +26,7 @@
 
 [particles]
   ppc0 = 16.0
+  spatial_sorting_interval = 8
 
   [[particles.species]]
     label    = "e-"
