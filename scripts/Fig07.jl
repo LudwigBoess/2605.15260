@@ -86,8 +86,7 @@ sims = ["Zigzag",
             L"\text{Esirkepov} \:\: \mathcal{S}_{2} + 8 \mathcal{F}"
             ]
 
-sim_path = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/entity_convergence/"
-sim_paths = sim_path * "oblique_modes_backup/" .*
+sim_paths = data_path * "oblique_modes/" .*
             ["zigzag", 
             "esirkepov_2nd", "esirkepov_3rd", 
             "esirkepov_5th", 

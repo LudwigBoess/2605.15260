@@ -1,0 +1,1 @@
+/lus/flare/projects/CRsInCosmoSims/PIC/Paper/entity_convergence/numerical_heating/2D/esirkepov_3rd/heating_1cell/spectra.txt

@@ -171,7 +171,7 @@ set_light_theme!(fontsize=20)
 
 sim_path = data_path * "shock/"
 time = 5000.0
-write_spectra(sim_path, time)
+#write_spectra(sim_path, time)
 
 plot_name = plot_path * "Fig19.pdf"
 Fig19(sim_path, time, plot_name)

@@ -143,7 +143,7 @@ function Fig20(data_path, plot_name)
     save(plot_name, f)
 end
 
-set_dark_theme!(fontsize=20)
+set_light_theme!(fontsize=20)
 
 perf_in_path  = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/entity_convergence/performance"
 perf_out_path = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/2600.0000/simulations/performance"
@@ -155,6 +155,6 @@ plot_path = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/2600.0000/Plots/"
 #end
 
 data_path = perf_out_path * "/"
-plot_name = plot_path * "Fig20.png"
+plot_name = plot_path * "Fig20.pdf"
 
 Fig20(data_path, plot_name)

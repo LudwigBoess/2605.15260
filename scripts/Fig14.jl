@@ -80,7 +80,7 @@ function Fig14(sim_path, arr_labels, run_names, plot_name)
 end
 
 set_light_theme!(fontsize=30)
-sim_path = data_path * "single_particle/zigzag/"
+sim_path = data_path * "single_particle/"
 run_names = ["Yee", "Cowan", "Lehe", "min1", "min2", "min3", "min4", "min5", "min6"]
 arr_labels = [L"\textbf{Yee}", L"\textbf{Cowan}", L"\textbf{Lehe}\leftrightarrow", 
             L"\textbf{min1}", L"\textbf{min2}", L"\textbf{min3}", L"\textbf{min4}", L"\textbf{min5}", L"\textbf{min6}\leftrightarrow"]

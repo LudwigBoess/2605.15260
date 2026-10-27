@@ -66,11 +66,6 @@ function Fig08(sim_paths, run_labels, t, plot_name)
         if j == 1
             hidexdecorations!(ax, ticks = false)
         end
-
-        #text!(ax, (-12.8+1.6, -12.8+1.6), text = run_labels[i], align = (:left, :center),
-        #        offset = (0, 0), color = :black)
-        # text!(ax, (-512+64, -512+64), text = run_labels[i], align = (:left, :center),
-        #         offset = (0, 0), color = :white)
     end
     colgap!(f.layout, 5)
     rowgap!(f.layout, 5)

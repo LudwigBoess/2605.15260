@@ -86,8 +86,7 @@ end
 
 set_light_theme!(fontsize=22)
 
-sim_path = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/entity_convergence/"
-sim_paths = sim_path * "numerical_heating/2D/" .*
+sim_paths = data_path * "numerical_heating/2D/" .*
             ["zigzag", 
             "esirkepov_2nd", 
             "esirkepov_3rd", 

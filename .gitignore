@@ -11,3 +11,6 @@ build_shape_orders.sh
 copy_executables.jl
 copy_files.sh
 job.pbs
+fields
+particles
+zigzag

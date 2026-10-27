@@ -5,6 +5,7 @@ using Printf
 using StatsBase
 using EntityTools
 using DelimitedFiles
+using FFTW
 
 
 function Fig15(sim_path, deposits, t, plot_name)

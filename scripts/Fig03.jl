@@ -11,8 +11,6 @@ function divE_err(sim_path)
 
     info = EntityData(sim_path)
 
-    #f(x) = sum(x) / length(x)
-
     d = read_field(info, ["DivE"], t=[0.0, Inf], verbose=true, reduction_function=mean)
 
     return d["t"], sqrt.(d["DivE"].^2)
@@ -146,7 +144,6 @@ function Fig03(data_paths, sims, plot_name)
     textlabel!(ax, Point2f(length(sims)-0.5, ypos_label), text = "3D",
                     offset = (0, 0), text_color = :black, alpha=0.0, strokewidth=0)
 
-    #rowgap!(f, 1, 10.0)
     resize_to_layout!(f)
     save(plot_name, f)
 end
@@ -202,17 +199,17 @@ x_labels = [L"\mathcal{Z}", L"\mathcal{S}_1",
             L"\mathcal{S}_2", L"\mathcal{S}_3", 
             L"\mathcal{S}_4", L"\mathcal{S}_5", 
             L"\mathcal{S}_6", L"\mathcal{S}_7", 
-            L"\mathcal{S}_8", L"\mathcal{S}_9"#,
-            #L"\mathcal{S}_{10}", L"\mathcal{S}_{11}"
+            L"\mathcal{S}_8", L"\mathcal{S}_9",
+            L"\mathcal{S}_{10}", L"\mathcal{S}_{11}"
             ]
 
-sim_dims = ["1D_single"]#, "2D", "3D"]
+sim_dims = ["1D", "2D", "3D"]
 data_files = [data_path * "charge_conservation/" * sim * "/charge_conservation_error.txt" for sim in sim_dims]
 
-sim_path = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/2600.0000/simulations/charge_conservation/"
+sim_path = data_path * "charge_conservation/"
 
 # for i = 1:length(sim_dims)
-#     sim_paths = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/2600.0000/simulations/charge_conservation/" * sim_dims[i] * "/" .*
+#     sim_paths = sim_path * sim_dims[i] * "/" .*
 #             ["zigzag", "esirkepov_1st", 
 #             "esirkepov_2nd", "esirkepov_3rd", "esirkepov_4th", 
 #             "esirkepov_5th", "esirkepov_6th", "esirkepov_7th", "esirkepov_8th",
@@ -222,9 +219,9 @@ sim_path = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/2600.0000/simulations/c
 # end
 
 plot_name = plot_path * "Fig03.pdf"
-#Fig03(data_files, x_labels, plot_name)
+Fig03(data_files, x_labels, plot_name)
 
-data_file_1D = data_path * "charge_conservation/1D_single/charge_conservation_error.txt"
-plot_name_1D = plot_path * "Fig03_1D.png"
-y_range_1D = (1.e-12, 1.e-9)
-Fig03_1D(data_file_1D, x_labels, plot_name_1D, y_range=y_range_1D)
+#data_file_1D = data_path * "charge_conservation/1D_single/charge_conservation_error.txt"
+#plot_name_1D = plot_path * "Fig03.png"
+#y_range_1D = (1.e-12, 1.e-9)
+#Fig03_1D(data_file_1D, x_labels, plot_name_1D, y_range=y_range_1D)

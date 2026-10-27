@@ -61,7 +61,6 @@ function Fig06(sim_paths, times, plot_name)
 
     t_lim = (0.0, 10000.0)
 
-    #f = Figure(size = (1650, 1000))
     f = Figure(size = (1300, 800))
     
     cmap = :vik
@@ -90,7 +89,6 @@ function Fig06(sim_paths, times, plot_name)
 
         for k = 1:length(cells)
         println("reading data from $(sim_paths[i])")
-        #info = EntityData(sim_paths[i] * "_" * cells[k])
         
         if k == 1
             titlevisible = true
@@ -108,22 +106,9 @@ function Fig06(sim_paths, times, plot_name)
         xlims!(ax1, (1.e-3, 10.0))
         ylims!(ax1, (1.0, 1.e5))
 
-        #spectra_1 = read_spectrum(info, 1, t=0.0)
-        #Nbins = length(spectra_1["E"])-1
-
-            # construct bin centers
-        # γ = Vector{Float64}(undef, Nbins)
-
-        # for i = 1:Nbins
-        #     γ[i] = 0.5 * (spectra_1["E"][i] + spectra_1["E"][i+1])
-        # end
-
         spec = readdlm(sim_paths[i] * "_" * cells[k] * "/spectra.txt")
 
-
-        @showprogress for j = 1:length(times)
-            #spectra_1 = read_spectrum(info, 1, t=times[j], verbose=false)
-            
+        @showprogress for j = 1:length(times)            
             lines!(ax1, spec[:,1], spec[:,1] .* spec[:,j+1], color = times[j], colormap=cmap, colorrange=t_lim)
         end
         text!(ax1, 1.5e-3, 5e4, text=labels[k], align = (:left, :top), fontsize=15)
@@ -145,9 +130,7 @@ end
 
 set_light_theme!()
 
-_data = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/entity_convergence/"
-
-sim_paths = _data * "numerical_heating/2D/" .*
+sim_paths = data_path * "numerical_heating/2D/" .*
             ["zigzag", "zigzag_8filter", 
              "esirkepov_2nd", "esirkepov_2nd_8filter",
              "esirkepov_3rd", 

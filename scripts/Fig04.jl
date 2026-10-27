@@ -1,4 +1,4 @@
-#include(joinpath(@__DIR__, "config.jl"))
+include(joinpath(@__DIR__, "config.jl"))
 
 using CairoMakie, MakieHelper
 using EntityTools
@@ -42,11 +42,6 @@ end
 
 """
     Kato 2013, Eq. 34, 3D case
-
-Number of plasma electrons per cubic electron skin depth implied by the measured
-loss rate `dEdt` (in m_e c^2 per omega_pe^-1) of a fast particle moving at speed
-`v0` (in units of c). The Coulomb logarithm is cut off at the grid Nyquist
-wavenumber k_max = pi/dx, so k_max*v0/omega_pe = pi * v0 * cells_per_skindepth.
 """
 function Neff3D(dEdt, v0; cells_per_skindepth=10.0)
     coulomb_log = log(pi * v0 * cells_per_skindepth)
@@ -91,12 +86,11 @@ function run_E_data(sim_path, sims)
 end
 
 
-#sim_path = data_path * "stopping_power/2D/"
-sim_path = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/2600.0000/simulations/stopping_power/2D/"
+sim_path = data_path * "stopping_power/2D/"
 folders = ["zigzag", "esirkepov_2nd", "esirkepov_3rd", "esirkepov_5th", "esirkepov_9th"]
 #run_E_data(sim_path, folders)
 
-sim_path = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/2600.0000/simulations/stopping_power/3D/"
+sim_path = data_path * "stopping_power/3D/"
 folders = ["zigzag", "esirkepov_2nd", "esirkepov_3rd"]
 #run_E_data(sim_path, folders)
 
@@ -181,8 +175,7 @@ end
 
 set_light_theme!(fontsize=20)
 
-#sim_path = data_path * "stopping_power/2D/"
-sim_path = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/2600.0000/simulations/stopping_power/2D/"
+sim_path = data_path * "stopping_power/2D/"
 folders = ["zigzag", "esirkepov_2nd", "esirkepov_3rd", "esirkepov_5th", "esirkepov_9th"]
 titles = [L"\text{Zigzag}",
           L"\text{Esirkepov} \:\: \mathcal{S}_2",
@@ -190,18 +183,17 @@ titles = [L"\text{Zigzag}",
           L"\text{Esirkepov} \:\: \mathcal{S}_5",
           L"\text{Esirkepov} \:\: \mathcal{S}_9"]
 dim = 2
-plot_path = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/2600.0000/Plots/"
-plot_name = plot_path * "Fig04_3D_min3.pdf"
-#Fig04(sim_path, folders, titles, dim, plot_name)
-
-
-sim_path = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/2600.0000/simulations/stopping_power/3D/"
-folders = ["zigzag", "esirkepov_2nd", "esirkepov_3rd"]
-titles = [L"\text{Zigzag}",
-          L"\text{Esirkepov} \:\: \mathcal{S}_2",
-          L"\text{Esirkepov} \:\: \mathcal{S}_3"]
-dim = 3
-plot_path = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/2600.0000/Plots/"
-plot_name = plot_path * "Fig04_3D.pdf"
+plot_name = plot_path * "Fig04.pdf"
 Fig04(sim_path, folders, titles, dim, plot_name)
+
+
+#sim_path = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/2600.0000/simulations/stopping_power/3D/"
+#folders = ["zigzag", "esirkepov_2nd", "esirkepov_3rd"]
+#titles = [L"\text{Zigzag}",
+#          L"\text{Esirkepov} \:\: \mathcal{S}_2",
+#          L"\text{Esirkepov} \:\: \mathcal{S}_3"]
+#dim = 3
+#plot_path = "/lus/flare/projects/CRsInCosmoSims/PIC/Paper/2600.0000/Plots/"
+#plot_name = plot_path * "Fig04.pdf"
+#Fig04(sim_path, folders, titles, dim, plot_name)
 

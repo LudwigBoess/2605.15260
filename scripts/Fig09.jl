@@ -99,20 +99,18 @@ sims = ["Zigzag",
             L"\text{Esirkepov} \:\: \mathcal{S}_1", 
             L"\text{Esirkepov} \:\: \mathcal{S}_2", 
             L"\text{Esirkepov} \:\: \mathcal{S}_3", 
-            #L"\text{Esirkepov} \:\: \mathcal{S}_4", 
             L"\text{Esirkepov} \:\: \mathcal{S}_5",
-            #L"\text{Esirkepov} \:\: \mathcal{S}_6", 
-            #L"\text{Esirkepov} \:\: \mathcal{S}_7", 
-            #L"\text{Esirkepov} \:\: \mathcal{S}_8", 
             L"\text{Esirkepov} \:\: \mathcal{S}_9",
             L"\text{Zigzag} + 8 \mathcal{F}",
             ]
 
 
-sim_paths = data_path * "bell_backup/" .*
-            ["zigzag", "esirkepov_1st", 
-            "esirkepov_2nd", "esirkepov_3rd", #"esirkepov_4th", 
-            "esirkepov_5th", #"esirkepov_6th", "esirkepov_7th", "esirkepov_8th",
+sim_paths = data_path * "bell/" .*
+            ["zigzag", 
+            "esirkepov_1st", 
+            "esirkepov_2nd", 
+            "esirkepov_3rd",
+            "esirkepov_5th",
             "esirkepov_9th",
             "zigzag_8filters",
             ] .* "/_bell"

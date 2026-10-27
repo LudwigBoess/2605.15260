@@ -104,6 +104,7 @@ function Fig12(sim_paths, runs, run_colors, plot_name)
     save(plot_name, f)
 end
 
+set_light_theme!(fontsize=25)
 
 runs = [L"\mathcal{Z}", 
         L"1 \mathcal{F}",
